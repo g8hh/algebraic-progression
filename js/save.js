@@ -13,17 +13,17 @@ function loopAssign(x, y) {
 }
 
 function save() {
-  if (typeof localStorage.game == "undefined") localStorage.game = JSON.stringify(app.player)
-  localStorage.game = JSON.stringify(app.player)
+  if (typeof localStorage.algebraicProgression == "undefined") localStorage.algebraicProgression = JSON.stringify(app.player)
+  localStorage.algebraicProgression = JSON.stringify(app.player)
 }
 
 function load() {
-  if (typeof localStorage.game != "undefined") app.player = loopAssign(app.player, JSON.parse(localStorage.game))
+  if (typeof localStorage.algebraicProgression != "undefined") app.player = loopAssign(app.player, JSON.parse(localStorage.algebraicProgression))
 }
 
 function importSave() {
   x = window.prompt("Please enter your save here")
-  if (typeof localStorage.game != "undefined") app.player = loopAssign(app.player, JSON.parse(window.atob(x)))
+  if (typeof localStorage.algebraicProgression != "undefined") app.player = loopAssign(app.player, JSON.parse(window.atob(x)))
   save()
 }
 
