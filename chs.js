@@ -150,7 +150,7 @@ var cnItems = {
     "": "",
     "": "",
     "": "",
-    "": "",
+    "BREAKING NEWS: Tuba finally fixed Max All": "突发新闻：Tuba 终于修复了 全部最大",
     "Everyone talks about pi, but no one talks about tau :saddening": "每个人都在谈论 pi，但没有人谈论 tau :saddening",
     "Fun Fact: A main GitHub page for Tuba's incremental games is in the works!": "有趣的事实：Tuba 增量游戏的主要 GitHub 页面正在开发中！",
     "Hey all, Scott here! My thoughts are being broadcasted on a news ticker now! No reason, just felt like it.": "大家好，斯科特在这里！ 我的想法现在正在新闻收报机上播出！ 没有理由，就是觉得。",
