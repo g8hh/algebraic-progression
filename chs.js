@@ -102,7 +102,7 @@ var cnItems = {
     "Credits": "学分",
     "Divide x cost by 2": "将 x 成本除以 2",
     "Doubler": "倍增器",
-    "Due to a mathematical error in your formula, points are softcapped beyond 1e500": "由于您的公式中存在数学错误，点被软封顶超过 1e500",
+    "Due to a mathematical error in your formula, points are softcapped beyond 1e500": "由于您的公式中存在数学错误，点数被软上限当超过 1e500",
     "Enter the E": "输入 E",
     "Factory Incremental": "工厂增量",
     "..for now.": "..目前。",
