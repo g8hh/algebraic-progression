@@ -411,6 +411,7 @@ var cnExcludePostfix = [
 var cnRegReplace = new Map([
     [/^([\d\.]+) hours ([\d\.]+) minutes ([\d\.]+) seconds$/, '$1 小时 $2 分钟 $3 秒'],
     [/^You are gaining (.+) elves per second$/, '你每秒获得 $1 精灵'],
+    [/^You have played this game for (.+) seconds.$/, '您已经玩了 $1 秒。'],
     [/^You have (.+) points$/, '你有 $1 点数'],
     [/^Number = (.+)$/, '数字 = $1'],
     [/^Go Quadratic for (.+) \(Q$/, '到 $1 的二次方 \(Q'],
