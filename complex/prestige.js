@@ -4,6 +4,7 @@ function compFormula() {
     neg = neg.mul(Decimal.pow(3,player.triplers))
     if(hasCU(0,9)) neg = neg.mul(COMP_UPGRADES[9].eff())
     if(hasCU(0,10)) neg = neg.mul(COMP_UPGRADES[10].eff())
+    if(hasCU(0,12)) neg = neg.mul(COMP_UPGRADES[12].eff())
     if(hasMilestone(11)) neg = neg.mul(2)
     neg = neg.floor()
     return neg
@@ -49,7 +50,7 @@ function goComplex(force) {
     if(player.options[6]){player.upgradePoints[0] = player.upgradePoints[1]; player.compUpgs[0] = []}
     player.options[6] = false
   }else if(!force && compFormula().gte(1) && player.hasCompletedLevel5){
-    if(!player.options[8] || confirm("Going Complex will reset everything Quadratic resets, and will also reset all Quadratic-level content, but you will receive i in return. Are you sure you want to do this?")) {
+    if(!player.options[8] || player.compAutobuyers[7] || confirm("Going Complex will reset everything Quadratic resets, and will also reset all Quadratic-level content, but you will receive i in return. Are you sure you want to do this?")) {
       player.i = player.i.add(compFormula())
       player.totali = player.totali.add(compFormula())
       player.complexes = player.complexes.add(1)

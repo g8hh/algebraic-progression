@@ -20,7 +20,7 @@ function tab(x) {
 }
 
 function xCost() {
-  return new Decimal(100000).mul(new Decimal(1).add(Decimal.div(0.11,xDivision())).pow(player.x)).div(hasUpgrade(3) && player.challenge != 5 ? 2 : 1).div(hasUpgrade(5)?1000000:1).div(hasChallenge(5)?1e9:1)
+  return new Decimal(100000).mul(new Decimal(1).add(Decimal.div(0.11,xDivision())).pow(player.x)).div(hasUpgrade(3) && player.challenge != 5 ? 2 : 1).div(hasUpgrade(5) && player.challenge != 5 ?1000000:1).div(hasChallenge(5)?1e9:1)
 }
          
 function xDivision() {
@@ -319,8 +319,8 @@ function updateValues() {
 }
 
 function fixUnixEpoch() {
-  if(player.prestigeTimes[0] >= 1639872000) player.prestigeTimes[0] = 0
-  if(player.prestigeTimes[2] >= 1639872000) player.prestigeTimes[2] = 0
+  if(player.prestigeTimes[0] >= 1639872000) player.prestigeTimes[0] = player.timePlayed
+  if(player.prestigeTimes[2] >= 1639872000) player.prestigeTimes[2] = player.timePlayed
 }
 
 function download(filename, text) {
