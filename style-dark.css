@@ -112,6 +112,17 @@ span{
   border-color: #ddffaa;
 }
 
+.zButton {
+  background-color: #bb0000;
+  font-size: 18px;
+}
+
+.zButton:hover {
+  color: #ffbdbd;
+  background-color: #cc0000;
+  border-color: #ffbdbd;
+}
+
 .upgradeLocked {
   background-color: red;
   color: white;
@@ -208,6 +219,18 @@ span{
   color: white;
   background-color: green;
   border-color: white;
+}
+
+.compChalDefault {
+  border-color: #de5d5d;
+  color: #de5d5d;
+  background-color: #660000;
+}
+
+.compChalComplete {
+  border-color: #5dde5d;
+  color: #5dde5d;
+  background-color: #006600;
 }
 
 .autocenter {
@@ -401,4 +424,21 @@ span{
 
 .iTripler:hover {
   background-color: green;
+}
+
+@keyframes a-existence-glow {
+  0% {
+    color: black;
+    text-shadow: 0.1rem 0.1rem 0.2rem white;
+  }
+
+  50% {
+    color: black;
+    text-shadow: 0.1rem 0.1rem 0.8rem white;
+  }
+
+  100% {
+    color: black;
+    text-shadow: 0.1rem 0.1rem 0.2rem white;
+  }
 }
