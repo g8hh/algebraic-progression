@@ -6,7 +6,7 @@ const MILESTONES = {
   },
   2: {
     title: "2 Complexes",
-    desc: "Unlock new Auto-Quadratic options.",
+    desc: "Unlock a new Auto-Quadratic mode.",
     requirement: 2,
   },
   3: {
@@ -76,8 +76,28 @@ const MILESTONES = {
   },
   16: {
     title: "20 CC tiers",
-    desc: "Passively gain challenge essence by simulating a Root Epicenter Level √4 run in the background.",
+    desc: "Passively gain challenge essence by simulating a Root Epicenter Level √4 run in the background. Also, unlock 5 new Complex Challenges.",
     requirement: 20,
+  },
+  17: {
+    title: "25 CC tiers",
+    desc: "Unlock autobuyers for Complex Plane currencies and Transformations.",
+    requirement: 25,
+  },
+  18: {
+    title: "30 CC tiers",
+    desc: "Gain 1% of x² gain on Quadratic every second.",
+    requirement: 30,
+  },
+  19: {
+    title: "40 CC tiers",
+    desc: "Generate Quadratic Power even if there's a nonreal solution, and unlock autobuyers for Imaginary Power buyables and i Triplers.",
+    requirement: 40,
+  },
+  20: {
+    title: "50 CC tiers",
+    desc: "Unlock Polynomials. (next update)",
+    requirement: 50,
   },
 }
 
