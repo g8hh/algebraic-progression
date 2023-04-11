@@ -2,6 +2,7 @@ function zpowerGen() {
   let zp = Decimal.pow(Decimal.add(2,player.zlab.empowerments.div(4)),player.z)
   zp = zp.mul(QP_BUYABLES[7].eff())
   zp = zp.mul(circleEffects(2))
+  if(hasPermUpgrade(7)) zp = zp.mul(PERM_UPGRADES[7].eff())
   return zp
 }
 
@@ -23,11 +24,11 @@ const COLLIDERS = {
     desc: "Boosts past upgrade effects.",
     milestones: [
       null,
-      "<b>Level 1</b><br>Add 0.03 to the exponent of <i>Self-Synergy</i> (+0.04 in Square Root)",
-      "<b>Level 3</b><br>Add 0.2 to the exponent of <i>Uprooted Points</i>",
-      "<b>Level 6</b><br>Add 0.01 to the exponent of <i>All-Encompassing</i>",
+      "<b>Level 1</b><br>Add 0.03 to the exponent of Quadratic Upgrade 13 (+0.04 in Square Root)",
+      "<b>Level 3</b><br>Add 0.2 to the exponent of Square Root Upgrade 2",
+      "<b>Level 6</b><br>Add 0.01 to the exponent of Square Root Upgrade 5",
       "<b>Level 12</b><br>Each \"Function Enhancer\" now delays the g(x) and h(x) softcaps by 6 levels",
-      "<b>Level 20</b><br>The effect from <i>Time Is Money</i> is raised ^4",
+      "<b>Level 20</b><br>The effect from Complex Upgrade 5 is raised ^4",
     ],
   },
   3: {
@@ -39,7 +40,7 @@ const COLLIDERS = {
       "<b>Level 3</b><br>Increase the \"Variable Coupler\" amount cap by 1", 
       "<b>Level 6</b><br>Multiply the Complex Upgrade 6 hardcap by 50",
       "<b>Level 12</b><br>Increase the 1st Challenge Essence softcap exponent from 0.6 to 0.62",
-      "<b>Level 20</b><br>Weaken the 3rd slope effect softcap (TBA)",
+      "<b>Level 20</b><br>Weaken the 3rd slope effect softcap",
     ],
   },
   4: {
@@ -51,7 +52,7 @@ const COLLIDERS = {
       "<b>Level 3</b><br>Delay the RE Doubler cost superscaling start by 150 purchases",
       "<b>Level 6</b><br>Power the first UP purchase button costs by 0.8",
       "<b>Level 12</b><br>Power the Translation cost by 0.9",
-      "<b>Level 20</b><br>The Z cost scaling is divided by 1.5 (TBA)",
+      "<b>Level 20</b><br>The Z cost scaling is divided by 1.5",
     ],
   },
 }

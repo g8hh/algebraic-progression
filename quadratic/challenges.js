@@ -27,7 +27,7 @@ const CHALLENGES = {
   5: {
     title: "Weighted Xs",
     desc: "X Upgrades are useless (that also means Functions, Produced Buildings, and Y-Intercept do nothing), and every time you buy an X, production is divided by about 1.016 (5^0.01). Your X autobuyer will single-buy.",
-    goal: new Decimal("1e660"),
+    goal: new Decimal("1e630"),
     rewardDesc: "Divide the X cost by 1e9, and unlock 4 new Square Root upgrades.",
   },
   6: {
@@ -40,12 +40,12 @@ const CHALLENGES = {
     title: "Atheism",
     desc: "Sacrificed X, sacrificed Y, and slope do nothing.",
     goal: new Decimal("1e390"),
-    rewardDesc: "Addition to the slope effect exponent from Y-Intercept is multiplied by 1.1.",
+    rewardDesc: "Addition to the slope effect exponent from Y-Intercept is multiplied by 1.05.",
   },
   8: {
     title: "Primed Production",
     desc: "Buildings only produce points if the number of total Buildings and Functions is prime. (Hint: Use the +1 Point button)",
-    goal: new Decimal("1e1970"),
+    goal: new Decimal("1e1750"),
     rewardDesc: "Divide the Y cost by 5.",
   },
   9: {

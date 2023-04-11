@@ -88,6 +88,7 @@ const BUYABLES = {
       if(hasChallenge(6)) base = base.mul(2)
       if(hasCU(1,3)) base = base.mul(BCOMP_UPGRADES[3].eff())
       if(hasChargedUpgrade(2) && player.challenge != 5 && player.compChallenge != 8) base = base.mul(1.4)
+      if(hasSDU(6)) base = base.mul(SYNTH_DIV_UPGRADES[6].eff())
       if(base.gte(5e7) && player.transformations.activated == 4) base = base.div(5e7).pow(0.5).mul(5e7)
       if(player.yChallenge == 2) base = new Decimal(1.3)
       return base
@@ -116,6 +117,7 @@ const BUYABLES = {
       if(hasChallenge(6)) base = base.mul(2)
       if(hasYQU(4,'bought')) base = base.mul(BCOMP_UPGRADES[3].eff())
       if(hasChargedUpgrade(2) && player.challenge != 5 && player.compChallenge != 8) base = base.mul(1.4)
+      if(hasSDU(6)) base = base.mul(SYNTH_DIV_UPGRADES[6].eff())
       if(base.gte(5e7) && player.transformations.activated == 4) base = base.div(5e7).pow(0.5).mul(5e7)
       if(player.yChallenge == 2) base = new Decimal(1.6)
       return base
@@ -149,7 +151,7 @@ function buildingMultipliers() {
   if(hasQU(1)) mult = mult.mul(QUAD_UPGRADES[1].eff())
   if(hasQU(13)) mult = mult.mul(QUAD_UPGRADES[13].eff())
   if(hasSU(2)) mult = mult.mul(SQRT_UPGRADES[2].eff())
-  if(player.challenge != 5 && player.compChallenge != 8) if(hasUpgrade(5)) mult = mult.mul(1000)
+  if(player.challenge != 5 && player.compChallenge != 8 && hasUpgrade(5)) mult = mult.mul(1000)
   if(hasSU(9)) mult = mult.mul(SQRT_UPGRADES[9].eff()) // non-static
   if(hasSU(10)) mult = mult.mul(SQRT_UPGRADES[10].eff())
   if(hasChallenge(9)) mult = mult.mul(CHALLENGES[9].effect())
@@ -160,6 +162,7 @@ function buildingMultipliers() {
   if(hasCU(1,1) && player.compChallenge != 10) mult = mult.mul(BCOMP_UPGRADES[1].eff())
   if(hasCU(0,3) && player.compChallenge != 10) mult = mult.mul(COMP_UPGRADES[3].eff()) // non-static
   if(hasChargedUpgrade(5) && player.challenge != 5 && player.compChallenge != 8) mult = mult.mul("1e9997")
+  if(hasPermUpgrade(1)) mult = mult.mul(PERM_UPGRADES[1].eff())
   if(player.compChallenge != 10) mult = mult.mul(COMP_UPGRADES[13].eff())
   if(player.compChallenge == 2) mult = mult.div(player.antiSlope)
   if(player.compChallenge == 6) mult = mult.div("1e75000")
@@ -171,14 +174,16 @@ function buildingExponents() {
   if(player.inSqrt) exp = exp.max(0).mul(hasSU(8)?0.55:0.5)
   if(player.challenge == 4 || player.compChallenge == 8) exp = exp.max(0).mul(0.75)
   if(hasUpgrade(7) && player.challenge != 5 && player.compChallenge != 8 && (!hasChargedUpgrade(7) || player.inSqrt)) exp = exp.mul(1.01)
-  if(hasChargedUpgrade(7) && player.challenge != 5 && player.compChallenge != 8 && !player.inSqrt) exp = exp.mul(1.03)
-  if(hasChallenge(4)) exp = exp.mul(1.02)
+  if(hasChargedUpgrade(7) && player.challenge != 5 && player.compChallenge != 8 && !player.inSqrt) exp = exp.mul(1.02)
+  if(hasChallenge(4)) exp = exp.mul(1.03)
   if(player.challenge == 2 || player.compChallenge == 8) exp = exp.mul(player.chalExponents[0])
   if(player.challenge == 9) exp = exp.mul(player.chalExponents[1])
   if(hasCU(0,1) && player.compChallenge != 10) exp = exp.mul(COMP_UPGRADES[1].eff())
+  exp = exp.mul(polyPowerEffect())
   if(player.compChallenge == 3) exp = exp.mul(Decimal.div(1,new Decimal(gcd_two_numbers(player.x.toNumber(),player.y.toNumber())).sqrt().max(1)))
   if(player.compChallenge == 7) exp = exp.mul(player.chalExponents[2])
   if(player.compChallenge == 10) exp = exp.mul(0.1)
+  if(player.inSynthDiv) exp = exp.max(0).mul(hasSDU(9)?0.025:0.02)
   return exp
 }
 
