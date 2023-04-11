@@ -24,7 +24,7 @@ const BCOMP_UPGRADES = {
   },
   4: {
     title: "S-UP-er Boost",
-    desc: "Power x² gain based on total Upgrade Points. (harcaps at ^1.25)",
+    desc: "Power x² gain based on total Upgrade Points. (hardcaps at ^1.25)",
     cost: new Decimal(5e10),
     eff() {return player.upgradePoints[1].div(200).add(1).div(1.05).pow(0.5).mul(1.05).min(1.25)},
     effectDisplay() {return "^" + format(BCOMP_UPGRADES[4].eff()) + " x² gain"},
@@ -294,6 +294,7 @@ if(imported.includes(";")==false)  imported+=";0,0,0,0"
   let arr = imported.split(";")[0].split(",");
     player.upgradePoints[0] = player.upgradePoints[1].sub(player.unlocked == 0 ? 0 : COMP_CHALLENGES[player.unlocked].unlockCost)
     player.compUpgs[0] = []
+    player.fourthRowCompUpgs = [null,new Decimal(0),new Decimal(0),new Decimal(0),new Decimal(0)]
     goComplex(true)
     for (let i = 0; i < arr.length; i++) {
       if (arr[i] > 0 && arr[i] < 13) {
@@ -316,6 +317,7 @@ if(info.includes(";")==false)  info+=";0,0,0,0"
   let arr = info.split(";")[0].split(",");
     player.upgradePoints[0] = player.upgradePoints[1].sub(player.unlocked == 0 ? 0 : COMP_CHALLENGES[player.unlocked].unlockCost)
     player.compUpgs[0] = []
+    player.fourthRowCompUpgs = [null,new Decimal(0),new Decimal(0),new Decimal(0),new Decimal(0)]
     goComplex(true)
     for (let i = 0; i < arr.length; i++) {
       if (arr[i] > 0 && arr[i] < 13) {
