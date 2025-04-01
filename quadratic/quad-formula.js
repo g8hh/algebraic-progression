@@ -5,13 +5,19 @@ function qpGen() {
     if(hasSU(14)) qp = qp.mul(SQRT_UPGRADES[14].eff())
     if(hasSU(15)) qp = qp.mul(SQRT_UPGRADES[15].eff2())
     qp = qp.mul(ceEffect(2))
-    if(hasCU(1,1) && player.compChallenge != 10) qp = qp.mul(10)
-    if(hasCU(0,10) && player.compChallenge != 10) qp = qp.mul(COMP_UPGRADES[10].eff2())
+    if(hasCU(1,1) && player.compChallenge != 10 && player.integration.challenge != 2) qp = qp.mul(10)
+    if(hasCU(0,10) && player.compChallenge != 10 && player.integration.challenge != 2) qp = qp.mul(COMP_UPGRADES[10].eff2())
     if(hasYQU(3,'bought')) qp = qp.mul(YQUAD_UPGRADES[3].eff())
     if(hasPermUpgrade(2)) qp = qp.mul(PERM_UPGRADES[2].eff2())
+    qp = qp.mul(RebuyableIntegrationUpgrades[1].eff())
+    if(IntegrationUpgrades.quadratic5.isBought()) qp = qp.mul(IntegrationUpgrades.quadratic5.eff())
     if(player.compChallenge == 9) qp = qp.pow(0.5)
     qp = qp.pow(COMP_CHALLENGES[9].eff())
+    qp = qp.pow(NumberSets.effect(2,4))
+    if(hasChargedQU(20)) qp = qp.pow(1.1)
+    if(player.integration.inTheLimit) qp = qp.pow(Limit.challengeFactorEffects(4))
     if(player.yChallenge == 3) qp = new Decimal(0)
+    qp = qp.mul(TemporalPlane.totalEffect())
     return qp
   }else{
     return new Decimal(0)
@@ -19,11 +25,16 @@ function qpGen() {
 }
 
 function ipGen() {
-  if(player.abc[2].pow(2).round().lt(new Decimal(4).mul(player.abc[1]).mul(player.abc[3]))){
+  if(player.abc[2].pow(2).round().lt(new Decimal(4).mul(player.abc[1]).mul(player.abc[3])) && hasZlabMilestone(1,3)){
     let ip = player.abc[2].mul(player.abc[3]).pow(player.abc[1].div(2).sub(0.5))
     if(player.quadBuyables[5].eq(1)) ip = ip.mul(QP_BUYABLES[5].eff())
     ip = ip.mul(circleEffects(1))
     ip = ip.pow(QP_BUYABLES[8].eff())
+    if(hasYQU(19,'bought')) ip = ip.mul(YQUAD_UPGRADES[19].eff())
+    ip = ip.pow(NumberSets.effect(2,4))
+    if(hasChargedQU(20)) ip = ip.pow(1.1)
+    if(player.integration.inTheLimit) ip = ip.pow(Limit.challengeFactorEffects(4))
+    ip = ip.mul(TemporalPlane.totalEffect())
     return ip
   }else{
     return new Decimal(0)
@@ -40,7 +51,7 @@ const QP_BUYABLES = {
     title: "Variable Coupler",
     desc: "Divide X cost scaling by +0.1 per purchase",
     cost() {
-      return player.quadBuyables[1].gt(hasZlabMilestone(3,2) ? 4 : 3) ? new Decimal(Infinity) : new Decimal(1000).mul(Decimal.pow(300,player.quadBuyables[1])).mul(Decimal.pow(2,player.quadBuyables[1].pow(2)))
+      return player.quadBuyables[1].gt(hasZlabMilestone(3,2) ? (IntegrationUpgrades.points8.isBought() ? (hasChargedQU(6) ? 7 : 5) : 4) : 3) ? new Decimal(Infinity) : new Decimal(1000).mul(Decimal.pow(300,player.quadBuyables[1])).mul(Decimal.pow(2,player.quadBuyables[1].pow(2)))
     },
     eff() {
       return player.yChallenge == 3 ? new Decimal(1) : new Decimal(1).add(player.quadBuyables[1].div(10))
@@ -51,7 +62,7 @@ const QP_BUYABLES = {
   },
   2: {
     title: "Function Enhancer",
-    desc: "Delay the g(n) and h(n) softcaps by 5 levels per purchase",
+    desc() {return "Delay the g(n) and h(n) softcaps by " + formatWhole(new Decimal(hasZlabMilestone(2,4)?6:5)) + " levels per purchase"},
     cost() {
       return new Decimal(10000).mul(Decimal.pow(100,player.quadBuyables[2])).mul(Decimal.pow(1.7,player.quadBuyables[2].pow(2)))
     },
@@ -95,7 +106,7 @@ const QP_BUYABLES = {
       return player.quadBuyables[5].eq(1) ? new Decimal(Infinity) : new Decimal("1e820")
     },
     eff() {
-      return player.yChallenge == 3 ? new Decimal(1) : ceEffect(2).pow(0.015)
+      return player.yChallenge == 3 || (player.integration.challenge == 6 && player.integration.ic6Version == 1) ? new Decimal(1) : ceEffect(2).pow(0.015)
     },
     effectDisplay() {
       return format(QP_BUYABLES[5].eff()) + "x IP gain";
@@ -108,7 +119,7 @@ const QP_BUYABLES = {
       return new Decimal("1e730").mul(Decimal.pow(1e40,player.quadBuyables[6])).mul(Decimal.pow(10,player.quadBuyables[6].pow(2)))
     },
     eff() {
-      return player.yChallenge == 3 ? new Decimal(1) : Decimal.pow(new Decimal("1e400"),player.quadBuyables[6])
+      return player.yChallenge == 3 || (player.integration.challenge == 6 && player.integration.ic6Version == 1) ? new Decimal(1) : Decimal.pow(new Decimal("1e400"),player.quadBuyables[6])
     },
     effectDisplay() {
       return format(QP_BUYABLES[6].eff()) + "x production of Buildings";
@@ -121,7 +132,7 @@ const QP_BUYABLES = {
       return player.quadBuyables[7].gte(10) ? new Decimal(Infinity) : new Decimal("1e800").mul(Decimal.pow(1e80,player.quadBuyables[7])).mul(Decimal.pow(100,player.quadBuyables[7].pow(2)))
     },
     eff() {
-      return player.yChallenge == 3 ? new Decimal(1) : Decimal.pow(3,player.quadBuyables[7].min(10))
+      return player.yChallenge == 3 || (player.integration.challenge == 6 && player.integration.ic6Version == 1) ? new Decimal(1) : Decimal.pow(3,player.quadBuyables[7].min(10))
     },
     effectDisplay() {
       return format(QP_BUYABLES[7].eff()) + "x Z-Power gain";
@@ -131,10 +142,10 @@ const QP_BUYABLES = {
     title: "Imaginary Duplicator",
     desc: "Raise IP generation by +0.01 per purchase",
     cost() {
-      return new Decimal("1e760").mul(Decimal.pow(1e60,player.quadBuyables[8])).mul(Decimal.pow(50,player.quadBuyables[8].pow(2)))
+      return player.quadBuyables[8].gte(imagDuplicatorCap()) ? new Decimal(Infinity) : new Decimal("1e760").mul(Decimal.pow(1e60,player.quadBuyables[8])).mul(Decimal.pow(50,player.quadBuyables[8].pow(2)))
     },
     eff() {
-      return player.yChallenge == 3 ? new Decimal(1) : Decimal.add(1,player.quadBuyables[8].div(100))
+      return player.yChallenge == 3 || (player.integration.challenge == 6 && player.integration.ic6Version == 1) ? new Decimal(1) : Decimal.add(1,player.quadBuyables[8].div(100)).min(Decimal.add(100,IntegrationChallenges[3].eff2().div(100)))
     },
     effectDisplay() {
       return "^" + format(QP_BUYABLES[8].eff()) + " IP gain";
@@ -154,4 +165,8 @@ function buyQPBuyable(x) {
       player.quadBuyables[x] = player.quadBuyables[x].add(1)
     }
   }
+}
+
+function imagDuplicatorCap() {
+  return new Decimal(9900).add(IntegrationChallenges[3].eff2())
 }

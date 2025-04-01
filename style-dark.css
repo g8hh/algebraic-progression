@@ -42,6 +42,19 @@ select,option{
   border-color: #4f4c91;
 }
 
+.tabLI {
+  font-size: 20px;
+  border-color: black;
+  color: gray;
+  background-color: white;
+}
+
+.tabLI:hover {
+  background-color: black;
+  border-color: gray;
+  color: white;
+}
+
 .buildingBuyable {
   background-color: black;
   color: #32964d;
@@ -63,6 +76,30 @@ select,option{
 .buildingLocked:hover {
   background-color: red;
   color: white;
+}
+
+.buildingBuyableLI {
+  background-color: white;
+  color: black;
+  transition-duration: 0.2s
+}
+
+.buildingBuyableLI:hover {
+  background-color: black;
+  color: white;
+  border-color: black;
+}
+
+.buildingLockedLI {
+  background: white;
+  color: red;
+  transition-duration: 0.2s  
+}
+
+.buildingLockedLI:hover {
+  background-color: black;
+  color: white;
+  border-color: black;
 }
 
 .tab:hover {
@@ -107,6 +144,13 @@ select,option{
   border-color: #ddaadd;
 }
 
+.xButtonLI {
+  background-color: #ff00ff;
+  color: black;
+  border-color: black;
+  font-size: 18px;
+}
+
 .yButton {
   background-color: #446622;
   font-size: 18px;
@@ -116,6 +160,13 @@ select,option{
   color: #ddffaa;
   background-color: #668844;
   border-color: #ddffaa;
+}
+
+.yButtonLI {
+  background-color: #00ff00;
+  color: black;
+  border-color: black;
+  font-size: 18px;
 }
 
 .zButton {
@@ -129,6 +180,13 @@ select,option{
   border-color: #ffbdbd;
 }
 
+.zButtonLI {
+  background-color: #ff0000;
+  color: black;
+  border-color: black;
+  font-size: 18px;
+}
+
 .xyButton {
   background-color: #006f73;
   font-size: 18px;
@@ -138,6 +196,28 @@ select,option{
   color: #99fbff;
   background-color: #008888;
   border-color: #99fbff;
+}
+
+.wButton {
+  background-color: #0000bb;
+  font-size: 18px;
+}
+
+.wButton:hover {
+  color: #bdbdff;
+  background-color: #0000cc;
+  border-color: #bdbdff;
+}
+
+.y2z2Button {
+  background-color: #94005e;
+  font-size: 18px;
+}
+
+.y2z2Button:hover {
+  color: #ff9ad6;
+  background-color: #99002b;
+  border-color: #ff9ad6;
 }
 
 .upgradeLocked {
@@ -170,6 +250,24 @@ select,option{
   border-color: #006ede;
 }
 
+.upgradeLockedLI {
+  background-color: red;
+  color: white;
+  border-color: white;
+}
+
+.upgradeBuyableLI {
+  background-color: #ffff00;
+  color: black;
+  border-color: white;
+}
+
+.upgradeBoughtLI {
+  background-color: #00ff00;
+  color: black;
+  border-color: white;
+}
+
 .yquadUpgradeBuyable {
   background-color: #deadff;
   color: black;
@@ -182,12 +280,36 @@ select,option{
   border-color: #9900ff;
 }
 
+.yquadUpgradeBuyableLI {
+  background-color: #deadff;
+  color: black;
+  border-color: black;
+}
+
+.yquadUpgradeBoughtLI {
+  background-color: #9900ff;
+  color: white;
+  border-color: white;
+}
+
+.upgradeInactive {
+  background-color: #666666;
+  color: white;
+  border-color: #666666;
+}
+
+.upgradeInactive:hover {
+  background-color: black;
+  color: #666666;
+  border-color: #666666;
+}
+
 .pps {
   font-size: 12px;
   color: lightgray;
 }
 
-#prestige {
+.prestige {
   height: 75px;
   width: 115px;
   color: blue;
@@ -221,6 +343,22 @@ select,option{
   transition-duration: 0.2s;
 }
 
+.tabMixedcomp {
+  font-size: 20px;
+  border-color: #5dde5d;
+  color: white;
+  background: linear-gradient(#006600, #800101);
+  transition-duration: 0.2s;
+}
+
+.tabHypercomp {
+  font-size: 20px;
+  border-color: #ff0000;
+  color: #ff0000;
+  background-color: #660000;
+  transition-duration: 0.2s;
+}
+
 .prestige3 {
   height: 75px;
   width: 115px;
@@ -238,19 +376,69 @@ select,option{
   transition-duration: 0.2s;
 }
 
-#prestige:hover, .tabQua:hover {
+.prestige4 {
+  height: 75px;
+  width: 115px;
+  border-color: #666600;
+  color: #666600;
+  background-color: #cccc00;
+  transition-duration: 0.2s;
+}
+
+.tabInteg {
+  font-size: 20px;
+  border-color: #666600;
+  color: #666600;
+  background-color: #cccc00;
+  transition-duration: 0.2s;
+}
+
+.prestige5 {
+  height: 75px;
+  width: 115px;
+  border-color: #006633;
+  color: #006633;
+  background-color: #00ff88;
+  transition-duration: 0.2s;
+}
+
+.tabSin {
+  font-size: 20px;
+  border-color: #006633;
+  color: #006633;
+  background-color: #00ff88;
+  transition-duration: 0.2s;
+}
+
+.prestige:hover, .tabQua:hover {
   background-color: blue;
   color: #A1C7CC;
 }
 
-.prestige2:hover, .tabComp:hover {
+.prestige2:hover, .tabComp:hover, .tabMixedcomp:hover {
   background-color: #5dde5d;
+  background: #5dde5d;
   color: #006600;
 }
 
 .prestige3:hover, .tabYqua:hover {
   background-color: #9900ff;
   color: #deadff;
+}
+
+.prestige4:hover, .tabInteg:hover {
+  background-color: #666600;
+  color: #cccc00;
+}
+
+.prestige5:hover, .tabSin:hover {
+  background-color: #006633;
+  color: #00ff88;
+}
+
+.tabHypercomp:hover {
+  background-color: #ff0000;
+  color: #660000;
 }
 
 .notprestige {
@@ -452,6 +640,11 @@ select,option{
   font-size: 20px;
 }
 
+.sinText {
+  color: #00ff88;
+  font-size: 20px;
+}
+
 .zLabText {
   color: #ffbdbd;
   font-size: 20px;
@@ -475,10 +668,72 @@ select,option{
   height: 100px;
 }
 
+.alterationLocked {
+  background-color: #660000;
+  border-color: red;
+  color: red;
+  border-radius: 5px;
+  border-width: 5px;
+  width: 500px;
+  height: 100px;
+}
+
+.alterationUnlocked {
+  background-color: #006600;
+  border-color: #5dde5d;
+  color: #5dde5d;
+  border-radius: 5px;
+  border-width: 5px;
+  width: 500px;
+  height: 100px;
+}
+
 .compUpgradeLocked {
   background-color: gray;
   color: black;
   border-color: gray;
+}
+
+.firstRowLocked {
+  background-color: gray;
+  color: black;
+  border-color: #ffa6f8;
+  border-width: 5px;
+}
+
+.secondRowLocked {
+  background-color: gray;
+  color: black;
+  border-color: #91e5ff;
+  border-width: 5px;
+}
+
+.thirdRowLocked {
+  background-color: gray;
+  color: black;
+  border-color: #8aff8c;
+  border-width: 5px;
+}
+
+.fourthRowLocked {
+  background-color: gray;
+  color: black;
+  border-color: #ff8888;
+  border-width: 5px;
+}
+
+.fifthRowLocked {
+  background-color: gray;
+  color: black;
+  border-color: #ffa86e;
+  border-width: 5px;
+}
+
+.sixthRowLocked {
+  background-color: gray;
+  color: black;
+  border-color: #ffff7a;
+  border-width: 5px;
 }
 
 .compUpgradeBuyable {
@@ -535,6 +790,54 @@ select,option{
   border-color: #bb0000;
 }
 
+.fifthRowBuyable {
+  background-color: #c963ff;
+  color: black;
+  border-color: #c963ff;
+}
+
+.fifthRowBought {
+  background-color: #6c00a6;
+  color: white;
+  border-color: #6c00a6;
+}
+
+.sixthRowBuyable {
+  background-color: #ffa86e;
+  color: black;
+  border-color: #ffa86e;
+}
+
+.sixthRowBought {
+  background-color: #782f00;
+  color: white;
+  border-color: #782f00;
+}
+
+.seventhRowBuyable {
+  background-color: #ffff7a;
+  color: black;
+  border-color: #ffff7a;
+}
+
+.seventhRowBought {
+  background-color: #757500;
+  color: white;
+  border-color: #757500;
+}
+
+.eighthRowBuyable {
+  background-color: #66ffc7;
+  color: black;
+  border-color: #66ffc7;
+}
+
+.eighthRowBought {
+  background-color: #00784c;
+  color: white;
+  border-color: #00784c;
+}
+
 .compLocked {
   height: 75px;
   width: 115px;
@@ -556,6 +859,21 @@ select,option{
 
 .iTripler:hover {
   background-color: green;
+}
+
+.timeJump {
+  color: white;
+  background-color: black;
+  width: 175px;
+  height: 150px;
+  font-size: 12px;
+  text-align: center; 
+  border-color: #666600;
+  border-width: 5px;
+}
+
+.timeJump:hover {
+  background-color: #666600;
 }
 
 @keyframes a-existence-glow {
@@ -678,34 +996,39 @@ select,option{
 
 @keyframes tabPoly {
   0% { /* red */
-    background-color: #aa0000;
-    color: #ff9999;
-    border-color: #ff9999;
+    background-color: #990000;
+    color: #ff0000;
+    border-color: #ff0000;
   }
-  20% { /* orange */
-    background-color: #aa6600;
-    color: #ff9900;
-    border-color: #ff9900;
+  16% { /* orange */
+    background-color: #996600;
+    color: #ffaa00;
+    border-color: #ffaa00;
   }
-  40% { /* green */
+  33% { /* yellow */
+    background-color: #999900;
+    color: #ffff00;
+    border-color: #ffff00;
+  }
+  50% { /* green */
     background-color: #009900;
     color: #00ff00;
     border-color: #00ff00;
   }
-  60% { /* blue */
+  66% { /* blue */
     background-color: #000099;
     color: #0066ff;
     border-color: #0066ff;
   }
-  80% { /* purple */
+  83% { /* purple */
     background-color: #990099;
     color: #ff00ff;
     border-color: #ff00ff;
   }
   100% { /* red */
-    background-color: #aa0000;
-    color: #ff9999;
-    border-color: #ff9999;
+    background-color: #990000;
+    color: #ff0000;
+    border-color: #ff0000;
   }
 }
 
@@ -768,6 +1091,37 @@ select,option{
   color: #aa0000;
 }
 
+.cubicBuyable {
+  background-color: #ff00ff;
+  color: white;
+  border-color: #ff00ff;
+}
+.quarticBuyable {
+  background-color: #ffff00;
+  color: black;
+  border-color: #ffff00;
+}
+.quinticBuyable {
+  background-color: #00ff00;
+  color: black;
+  border-color: #00ff00;
+}
+.sexticBuyable {
+  background-color: #7777ff;
+  color: white;
+  border-color: #7777ff;
+}
+.septicBuyable {
+  background-color: #4000ff;
+  color: white;
+  border-color: #4000ff;
+}
+.octicBuyable {
+  background-color: #9900ff;
+  color: white;
+  border-color: #9900ff;
+}
+
 #enterSynthDiv {
   width: 150px;
   height: 125px;
@@ -781,6 +1135,19 @@ select,option{
   background-color: #0000aa;
 }
 
+#enterLimit {
+  width: 150px;
+  height: 125px;
+  color: #666600;
+  background-color: #cccc00;
+  border-color: #666600;
+}
+
+#enterLimit:hover {
+  color: #cccc00;
+  background-color: #666600;
+}
+
 .disappearingbody{
     transition: 4s;
     opacity: 0;
@@ -788,4 +1155,372 @@ select,option{
 
 a:visited {
   color: #7000ba;
+}
+
+.alertText {
+  animation: alertText 4s linear 0s infinite;
+}
+
+@keyframes alertText {
+  0% {
+    color: white;
+  }
+  50% {
+    color: #ff7878;
+  }
+  100% {
+    color: white;
+  }
+}
+
+.rebuyableIntegrationUpgradeBuyable {
+  background-color: #cccc00;
+  border-color: #cccc00;
+  color: black;
+}
+
+.singularityUpgradeBuyable {
+  background-color: #420069;
+  border-color: #420069;
+  color: white;
+}
+
+.numberSet {
+  width: 400px;
+  height: 200px;
+  border-radius: 10px;
+  background-color: black;
+  border:4px solid white;
+}
+
+.naturalSet {
+  border: 4px solid #ffa6f8;
+  color: #ffa6f8;
+}
+
+.rationalSet {
+  border: 4px solid #91e5ff;
+  color: #91e5ff;
+}
+
+.complexSet {
+  border: 4px solid #8aff8c;
+  color: #8aff8c;
+}
+
+.realSet {
+  border: 4px solid #ff8c8c;
+  color: #ff8c8c;
+}
+
+.integerSet {
+  border: 4px solid #ffa86e;
+  color: #ffa86e;
+}
+
+.algebraicSet {
+  border: 4px solid #ffff7a;
+  color: #ffff7a;
+}
+
+.quaternionSet {
+  border: 4px solid #800000;
+  color: #800000;
+}
+
+.trigFunction1, .trigFunction2, .trigFunction3, .trigFunction4, .trigFunction5, .trigFunction6 {
+  border: 0px;
+  width: 400px;
+  height: 200px;
+  border-radius: 0px;
+  text-shadow: black 1px 0 10px;
+}
+
+.trigFunction1 {
+  background-color: #00dd77;
+}
+
+.trigFunction2 {
+  background-color: #00bb66;
+}
+
+.trigFunction3 {
+  background-color: #008844;
+}
+
+.trigFunction4 {
+  background-color: #006633;
+}
+
+.trigFunction5 {
+  background-color: #004422;
+}
+
+.trigFunction6 {
+  background-color: #002211;
+}
+
+#barProgress1, #barProgress2, #barProgress3 {
+  width: 50%;
+  background-color: #999999;
+}
+
+#qpBar {
+  width: 30%;
+  height: 30px;
+  background-color: #5fe1ed;
+  color: black;
+}
+
+#ipBar {
+  width: 30%;
+  height: 30px;
+  background-color: #5dde5d;
+  color: black;
+}
+
+#peBar {
+  width: 30%;
+  height: 30px;
+  background-color: #00ff88;
+  color: black;
+}
+
+.parabolaBuyable {
+  height: 75px;
+  width: 115px;
+  background-color: white;
+  color: #5fe1ed;
+  border-color: #5fe1ed;
+  box-shadow: 0px 0px 10px #5fe1ed;
+}
+
+.parabolaBuyable:hover {
+  height: 75px;
+  width: 115px;
+  background-color: #5fe1ed;
+  color: white;
+  box-shadow: 0px 0px 10px #5fe1ed;
+}
+
+.sinUpgradeBuyable {
+  color: black;
+  background-color: #00ff88;
+  border-color: #00ff88;
+}
+
+.harshInstabilityText {
+  color: #a60000;
+}
+
+.multButton {
+  background-color: orange;
+  border-color: #000000;
+  border-width: 3px;
+  color: white; 
+}
+
+.resetButton, .reupgLocked {
+  background-color: purple;
+  border-color: #FF00FF;
+  color: #FF00FF;
+}
+
+.resetButton:hover, .reupgBuyable {
+  background-color: #FF00FF;
+  border-color: purple;
+  color: purple;
+}
+
+.resettingText {
+  color: #FF00FF;
+  font-size: 20px;
+}
+
+.sqrtButton {
+  background-color: #00FFFF;
+  color: black;
+  border-color: black;
+  height: 100px;
+  width: 150px;
+  transition-duration: 0.2s
+}
+
+.sqrtButton:hover {
+  background-color: green;
+  color: white;
+  border-color: black;
+  height: 100px;
+  width: 150px;
+}
+
+.complexButton {
+  color: #00ff00;
+  border-color: #00ff00;
+  background-color: #005500;
+}
+
+.complexButton:hover {
+  color: #005500;
+  border-color: #005500;
+  background-color: #00ff00;
+}
+
+.compTextLI {
+  color: #00ff00;
+  font-size: 20px;
+}
+
+.milestoneLockedLI {
+  border: 2px solid white;
+  color: white;
+  width: 250px;
+  height: 100px;
+  max-height: 150px;
+  border-radius: 10px;
+  background-color: red;
+}
+
+.milestoneUnlockedLI {
+  border: 2px solid white;
+  color: black;
+  width: 250px;
+  height: 100px;
+  max-height: 150px;
+  border-radius: 10px;
+  background-color: #00ff00;
+}
+
+.yQuadButton {
+  border-color: #6800ad;
+  color: #6800ad;
+  background-color: #c772ff;
+}
+
+.yQuadButton:hover {
+  background-color: #6800ad;
+  color: #c772ff;
+}
+
+.yQuadTextLI {
+  color: #6800ad;
+  font-size: 20px;
+}
+
+.mandelbrotButton, .mandelbrotChalDefault {
+  color: #dd0000;
+  border-color: #dd0000;
+  background-color: #ffc455;
+}
+
+.mandelbrotButton:hover, .mandelbrotChalRunning {
+  color: #ffc455;
+  border-color: #ffc455;
+  background-color: #dd0000;
+}
+
+.mandelbrotText {
+  color: #ffc455;
+  font-size: 20px;
+}
+
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  height: 150px;
+  width: 480px;
+  background-color: #444444;
+  color: white;
+  text-align: center;
+}
+
+.challengeSupercompleteLI {
+  background-color: cyan;
+  color: black;
+  border-color: black;
+}
+
+.resettingFAUpgradeBuyable {
+  background-color: #ffa6f8;
+  color: black;
+  border-color: black;
+}
+
+.resettingFAUpgradeBought {
+  background-color: #910086;
+  color: white;
+  border-color: white;
+}
+
+.squarerootFAUpgradeBuyable {
+  background-color: #91e5ff;
+  color: black;
+  border-color: black;
+}
+
+.squarerootFAUpgradeBought {
+  background-color: #007fa6;
+  color: white;
+  border-color: white;
+}
+
+.complexFAUpgradeBuyable {
+  background-color: #8aff8c;
+  color: black;
+  border-color: black;
+}
+
+.complexFAUpgradeBought {
+  background-color: #279629;
+  color: white;
+  border-color: white;
+}
+
+.messenceFAUpgradeBuyable {
+  background-color: #f7deb7;
+  color: black;
+  border-color: black;
+}
+
+.messenceFAUpgradeBought {
+  background-color: #ff9900;
+  color: black;
+  border-color: black;
+}
+
+.mgeneratorsFAUpgradeBuyable {
+  background-color: #9c8c73;
+  color: black;
+  border-color: black;
+}
+
+.mgeneratorsFAUpgradeBought {
+  background-color: #995c00;
+  color: white;
+  border-color: white;
+}
+
+.rspheresFAUpgradeBuyable {
+  background-color: #4f483e;
+  color: white;
+  border-color: black;
+}
+
+.rspheresFAUpgradeBought {
+  background-color: #523100;
+  color: white;
+  border-color: white;
+}
+
+.mchallengeFAUpgradeBuyable {
+  background-color: white;
+  color: black;
+  border-color: black;
+}
+
+.mchallengeFAUpgradeBought {
+  background-color: black;
+  color: white;
+  border-color: white;
 }

@@ -12,7 +12,14 @@ function compPlaneEffects(x) {
       return player.compPlane[1][3].add(1).log10().add(1).max(1).log(3)
       break;
     case 4:
-      return player.compPlane[1][4].add(1).log10().pow(Decimal.add(0.8,POLY_BUYABLES[1].eff())).mul(POLY_BUYABLES[5].eff()).floor()
+      let y = player.compPlane[1][4].add(1).log10().pow(Decimal.add(0.8,POLY_BUYABLES[1].eff()))
+      y = y.mul(POLY_BUYABLES[5].eff())
+      y = y.mul(NumberSets.effect(3,3))
+      if(IntegrationUpgrades.complex3.isBought()) y = y.mul(IntegrationUpgrades.complex3.eff())
+      if(player.integration.chalCompletions[2] >= 1) y = y.mul(player.quadratics.pow(0.1).add(1))
+      if(hasSDU(11)) y = y.mul(TemporalPlane.totalEffect())
+      y = y.floor()
+      return y
       break;
   }
 }
@@ -29,7 +36,7 @@ function compPlaneEffectDisplay(x) {
       return "adding " + format(compPlaneEffects(x)) + " to the multiplier per purchase of the x² doubler and the RE doubler."
       break;
     case 4:
-      return hasSDU(11) ? ("generating " + formatWhole(compPlaneEffects(x)) + " Upgrade Points per second.") : ("giving " + formatWhole(compPlaneEffects(x)) + " extra Upgrade Points. (next at " + format(Decimal.pow(10,compPlaneEffects(4).add(1).div(POLY_BUYABLES[5].eff()).pow(Decimal.div(1,Decimal.add(0.8,POLY_BUYABLES[1].eff())))).sub(1)) + ")")
+      return hasSDU(11) ? ("generating " + formatWhole(compPlaneEffects(x)) + " Upgrade Points per second.") : ("giving " + formatWhole(compPlaneEffects(x)) + " extra Upgrade Points. (next at " + format(Decimal.pow(10,compPlaneEffects(4).add(1).div(POLY_BUYABLES[5].eff()).div(NumberSets.effect(3,3)).pow(Decimal.div(1,Decimal.add(0.8,POLY_BUYABLES[1].eff())))).sub(1)) + ")")
   }
 }
 
@@ -68,7 +75,7 @@ function compPlaneBuyCosts(x) {
 }
 
 function buyCplaneVar(x) {
-  if(player.compPlane[0][x].eq(0)) {
+  if(player.compPlane[0][x].eq(0) && !IntegrationUpgrades.cpr.isBought()) {
     if(whyAreThereSoManyFunctionsNeededForThisMechanic(x).gte(tmp.compPlaneCosts[x*2-1]) && player.i.gte(tmp.compPlaneCosts[x*2])) {
       player.i = player.i.sub(tmp.compPlaneCosts[x*2])
       player.compPlane[0][x] = player.compPlane[0][x].add(1)
@@ -83,9 +90,14 @@ function buyCplaneVar(x) {
 
 function compPlaneGen(x) {
   let cp = Decimal.pow(1.2,player.compPlane[0][x]).mul(player.compPlane[0][x])
-  if(hasCU(0,11) && x < 4) cp = cp.mul(COMP_UPGRADES[11].eff())
-  if(hasCU(1,5) && x < 4) cp = cp.mul(BCOMP_UPGRADES[5].eff())
+  if(hasCU(0,11) && x < 4 && player.compChallenge != 10) cp = cp.mul(COMP_UPGRADES[11].eff())
+  if(hasCU(1,5) && x < 4 && player.compChallenge != 10) cp = cp.mul(BCOMP_UPGRADES[5].eff())
   if(player.varSynth.unlocked[2] && x < 4) cp = cp.mul(iExpEffects(x))
+  if(x < 4) cp = cp.mul(NumberSets.effect(3,2))
+  cp = cp.mul(TemporalPlane.totalEffect())
+  if(IntegrationUpgrades.complex2.isBought() && x == 4) cp = cp.mul(IntegrationUpgrades.complex2.eff())
+  cp = cp.pow(HypercompFlune[2].eff())
+  if(player.integration.inTheLimit) cp = cp.pow(Limit.challengeFactorEffects(6))
   return cp
 }
 

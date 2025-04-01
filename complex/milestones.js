@@ -102,9 +102,10 @@ const MILESTONES = {
 }
 
 function hasMilestone(x) {
+  if(player.inLostIntegration) return false
   if(x < 13) {
     return player.complexes.gte(MILESTONES[x].requirement)
   } else {
-    return ccTiers() >= MILESTONES[x].requirement
+    return ccTiers() >= MILESTONES[x].requirement || IntegrationUpgrades.mil2.isBought()
   }
 }

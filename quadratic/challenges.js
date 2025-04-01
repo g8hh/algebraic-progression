@@ -52,7 +52,7 @@ const CHALLENGES = {
     title: "Diminishing Returns",
     desc: "Production gets slower over time.",
     goal: new Decimal("1e310"),
-    effect() {return new Decimal(player.prestigeTimes[0]).add(1).pow(10).pow(hasChallenge(10)?QP_BUYABLES[3].eff():1).pow(hasCU(0,4)?COMP_UPGRADES[4].eff():1)},
+    effect() {return new Decimal(player.gamePrestigeTimes[0]).add(1).pow(10).pow(hasChallenge(10)?QP_BUYABLES[3].eff():1).pow(hasCU(0,4)?COMP_UPGRADES[4].eff():1).pow(SinusoidalUpgrades[12].eff())},
     rewardDesc: "Gain more points based on time in this Quadratic.",
   },
   10: {
@@ -64,13 +64,15 @@ const CHALLENGES = {
 }
 
 function startChallenge(x) {
-  if(player.challenge == x){
-    if(player.points.gte(CHALLENGES[x].goal) && !hasChallenge(x)) player.chalCompletions.push(x) // completes challenge if you have reached the goal and if it is not completed
-    if(player.points.gte(CHALLENGES[x].goal) && player.prestigeTimes[0] < player.challengeRecords[x]) player.challengeRecords[x] = player.prestigeTimes[0] // changes challenge record if chal time < best time
-    goQuadratic(true)
-  }else{
-    goQuadratic(true)
-    player.challenge = x
+  if(player.integration.challenge != 1 && (player.integration.challenge != 4 || !player.integration.ic4Prestiges[0])) {
+    if(player.challenge == x){
+      if(player.points.gte(CHALLENGES[x].goal) && !hasChallenge(x)) player.chalCompletions.push(x) // completes challenge if you have reached the goal and if it is not completed
+      if(player.points.gte(CHALLENGES[x].goal) && player.prestigeTimes[0] < player.challengeRecords[x]) player.challengeRecords[x] = player.prestigeTimes[0] // changes challenge record if chal time < best time
+      goQuadratic(true)
+    }else{
+      goQuadratic(true)
+      player.challenge = x
+    }
   }
 }
 

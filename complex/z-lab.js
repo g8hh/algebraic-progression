@@ -1,8 +1,11 @@
 function zpowerGen() {
-  let zp = Decimal.pow(Decimal.add(2,player.zlab.empowerments.div(4)),player.z)
+  let zp = Decimal.pow(Decimal.add(2,player.zlab.empowerments.div(4).mul(NumberSets.sacrificeValueEffects(3))),player.z)
   zp = zp.mul(QP_BUYABLES[7].eff())
   zp = zp.mul(circleEffects(2))
+  zp = zp.mul(RebuyableIntegrationUpgrades[1].eff())
   if(hasPermUpgrade(7)) zp = zp.mul(PERM_UPGRADES[7].eff())
+  if(hasYQU(20,'bought')) zp = zp.pow(YQUAD_UPGRADES[20].eff())
+  zp = zp.mul(TemporalPlane.totalEffect())
   return zp
 }
 
@@ -58,7 +61,7 @@ const COLLIDERS = {
 }
 
 function zlabBuyableCosts(x) {
-  if(player.zlab.levels[x] >= 20) {
+  if(player.zlab.levels[x] >= 20 && x != 5) {
     return new Decimal(Infinity);
   }
   switch (x) {
@@ -77,10 +80,14 @@ function zlabBuyableCosts(x) {
     case 5:
       return new Decimal(1e110).mul(Decimal.pow(1e5,player.zlab.empowerments.pow(2)))
     break;
+    case 6:
+      return new Decimal("1e3800").mul(Decimal.pow(1e10,player.zlab.levels[5]))
+    break;
   }
 }
 
 function hasZlabMilestone(collider,x) {
+  if(player.inLostIntegration) return false
   switch (x) {
     case 1:
       return player.zlab.levels[collider] >= 1;
@@ -106,6 +113,11 @@ function increaseLevel(x) {
       player.i = player.i.sub(zlabBuyableCosts(x))
       player.zlab.empowerments = player.zlab.empowerments.add(1)
     }
+  } else if (x == 6) {
+    if(player.zlab.particles[5].gte(zlabBuyableCosts(x))) {
+      player.zlab.particles[5] = player.zlab.particles[5].sub(zlabBuyableCosts(x))
+      player.zlab.levels[5]++
+    }
   } else {
     if(player.zlab.particles[x].gte(zlabBuyableCosts(x))) {
       player.zlab.particles[x] = player.zlab.particles[x].sub(zlabBuyableCosts(x))
@@ -115,5 +127,5 @@ function increaseLevel(x) {
 }
 
 function totalColliderLevels() {
-  return player.zlab.levels[1]+player.zlab.levels[2]+player.zlab.levels[3]+player.zlab.levels[4]
+  return player.zlab.levels[1]+player.zlab.levels[2]+player.zlab.levels[3]+player.zlab.levels[4]+player.zlab.levels[5]
 }
