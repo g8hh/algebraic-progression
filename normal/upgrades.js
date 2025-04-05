@@ -122,9 +122,6 @@ const PERM_UPGRADES = {
   8: {
     title: "Enlightened Omnipotence",
     desc: "Multiply Polynomial efficiency by 100x or power Polynomial efficiency by ^1.01, whichever is larger.",
-    eff(x) {
-      return polynomialEff(x).max(1).pow(0.01).max(100)
-    }
   },
   9: {
     title: "Enlightened Prestige",
@@ -160,9 +157,6 @@ const PERM_UPGRADES = {
   13: {
     title: "Enlightened Continuum",
     desc: "Multiply global speed by 100x or power global speed by ^1.01, whichever is larger, when Temporal Plane is active.",
-    eff() {
-      return TemporalPlane.totalEffect().max(1).pow(0.01).max(100)
-    }
   },
   14: {
     title: "Enlightened Trigonometry",

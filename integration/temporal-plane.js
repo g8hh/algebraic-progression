@@ -50,7 +50,7 @@ const TemporalPlane = {
     x = x.mul(NumberSets.effect(6,3))
     if(player.integration.chalCompletions[6].includes(0)) x = x.pow(1.5)
     x = x.pow(NumberSets.effect(7,3))
-    if(hasPermUpgrade(13)) x = x.mul(PERM_UPGRADES[13].eff())
+    if(hasPermUpgrade(13)) x = (x.pow(1.01).gte(x.mul(100)) ? x.pow(1.01) : x.mul(100))
     if(!player.options[18]) x = new Decimal(1)
     if(player.integration.challenge == 6 && player.integration.ic6Version == 0) x = new Decimal(0.01)
     x = x.mul(tmp.devspeed)

@@ -166,6 +166,7 @@ const BUYABLES = {
     },
     eff() {
       let x = player.buyables[5].add(player.buyables[6].mul(player.challenge == 14 || player.challenge == 16 ? 0 : 1)).mul(100000).mul(buildingMultipliers()).pow(buildingExponents())
+      if(!player.inLostIntegration) x = new Decimal(0)
       return x
     },
     baseProd() {

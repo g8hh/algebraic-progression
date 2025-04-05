@@ -95,9 +95,11 @@ function polynomialEff(x) {
   if(HypercompUpgrades.has(5)) polyEffSoftcap = polyEffSoftcap.mul(HypercompUpgrades[5].eff())
   
   if(gain.gt(polyEffSoftcap)) gain = Decimal.pow(10,gain.div(polyEffSoftcap).log10().pow(0.95)).mul(polyEffSoftcap)
+  
+  if(hasPermUpgrade(8)) gain = (gain.pow(1.01).gte(gain.mul(100)) ? gain.pow(1.01) : gain.mul(100))
+  
   if(player.integration.inTheLimit) gain = gain.pow(Limit.challengeFactorEffects(9))
   if(player.integration.challenge == 6 && player.integration.ic6Version == 0) gain = gain.pow(0.5)
-  if(hasPermUpgrade(8)) gain = gain.mul(PERM_UPGRADES[8].eff())
   return gain
 }
 
