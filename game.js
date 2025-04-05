@@ -467,6 +467,7 @@ function mainLoop(){
   if(hasLoaded==1){document.getElementById("loading_page").style = "display: none";document.getElementById("app").style = "";hasLoaded=2}
   if(!window["player"]||!player.points||!hasLoaded)return requestAnimationFrame(mainLoop);
   let diff = (Date.now()-player.lastTick)/1000
+  if(diff < 0) diff = 0
   if(diff > tmp.maxDiff) tmp.maxDiff = diff
   if(tmp.maxDiff > 1e8) tmp.maxDiff = 0
   if(!player.options[9])diff = document.hidden?0:Math.min(diff,0.075)

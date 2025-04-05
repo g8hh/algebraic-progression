@@ -7,6 +7,7 @@ const PythagoreanTriples = {
     if(HypercompUpgrades.has(14)) gain = gain.mul(HypercompUpgrades[14].eff2())
     gain = gain.mul(HypercompFlune[8].eff())
     if(BasicHypercompUpgrades.has(8)) gain = gain.mul(TemporalPlane.totalEffect())
+    if(!player.pythTriples.def[1].pow(2).round().add(player.pythTriples.def[2].pow(2).round()).eq(player.pythTriples.def[3].pow(2).round()) || (player.pythTriples.def[1] == 0 || player.pythTriples.def[2] == 0 || player.pythTriples.def[3] == 0)) gain = new Decimal(0)
     return gain
   },
   maxDEF() {

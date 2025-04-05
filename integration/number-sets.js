@@ -341,6 +341,7 @@ const NumberSets = {
         player.integration.assignedSets[i] = player.integration.assignedSets[i].add(x)
       }
     }
+    if(player.integration.emptySets.lt(0)) player.integration.emptySets = new Decimal(0)
   },
   sacrifice(set,percent) {
     let sac = player.integration.assignedSets[set].mul(percent/100)
@@ -371,7 +372,7 @@ const NumberSets = {
   },
   setPercentage(x) {
     let imported = new Decimal(prompt("Set your desired percentage in the input box below!"))
-    player.integration.autobuyers.numberSetAutoModes[x] = imported.min(100).max(0).floor().toNumber()
+    player.integration.autobuyers.numberSetAutoModes[x] = imported.min(99).max(0).floor().toNumber()
   },
   export() {
     let str = player.integration.active.types.toString() + ";" + player.integration.active.effects.toString();

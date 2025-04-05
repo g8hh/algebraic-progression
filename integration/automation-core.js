@@ -13,11 +13,11 @@ function runAutomationCoreScript() {
       if(player.compChalCompletions[1] == 5 && player.compChalCompletions[2] < 5 && player.unlocked == 0) {
         interactWithCC(2)
       }
-      if(player.compChallenge == 2 && player.x2.gte("1e17400")) interactWithCC(2)
+      if(player.compChallenge == 2 && player.x2.gte("1e18400")) interactWithCC(2)
       if(player.compChalCompletions[2] == 5 && player.compChalCompletions[3] < 5 && player.unlocked == 0) {
         interactWithCC(3)
       }
-      if(player.compChallenge == 3 && player.x2.gte("1e11700")) interactWithCC(3)
+      if(player.compChallenge == 3 && player.x2.gte("1e11600")) interactWithCC(3)
       if(player.compChalCompletions[3] == 5 && player.compChalCompletions[4] < 5 && player.unlocked == 0) {
         interactWithCC(4)
       }
@@ -36,7 +36,7 @@ function runAutomationCoreScript() {
       if(player.compChalCompletions[7] == 5 && player.compChalCompletions[8] < 5 && player.unlocked == 0) {
         interactWithCC(8)
       }
-      if(player.compChallenge == 8 && player.x2.gte("1e145000")) interactWithCC(8)
+      if(player.compChallenge == 8 && player.x2.gte("1e195000")) interactWithCC(8)
       if(player.compChalCompletions[8] == 5 && player.compChalCompletions[9] < 5 && player.unlocked == 0) {
         interactWithCC(9)
       }
