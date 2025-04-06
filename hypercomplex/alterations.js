@@ -27,7 +27,7 @@ const Alterations = {
   6: {
     title: "300 w",
     desc: "Unlock Quaternion Sets and passively generate holes.",
-    requirement: 309,
+    requirement: 300,
   },
   has(x) {
     return player.w.gte(Alterations[x].requirement) && !player.inLostIntegration
