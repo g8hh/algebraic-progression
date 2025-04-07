@@ -1,31 +1,37 @@
 function reFormula() {
   if(!inSqrtLevel(2)){
     let re = new Decimal(1.1).pow(player.x.div(100).sub(1)).mul(new Decimal(1.25).pow(player.y))
-    re = re.mul(Decimal.pow(Decimal.add(2,compPlaneEffects(3)),player.sqrtDoublers))
+    re = re.mul(Decimal.pow(Decimal.add(2,compPlaneEffects(3)),player.sqrtDoublers).pow(IntegrationUpgrades.quadratic9.isBought() ? 100 : 1))
     if(hasSU(11)) re = re.mul(10)
     if(hasSU(15)) re = re.mul(SQRT_UPGRADES[15].eff())
     re = re.mul(ceEffect(1))
-    if(hasCU(1,1) && player.compChallenge != 10) re = re.mul(10)
-    if(hasCU(0,6) && player.compChallenge != 10) re = re.mul(COMP_UPGRADES[6].eff())
-    if(hasCU(0,8) && player.compChallenge != 10) re = re.mul(COMP_UPGRADES[8].eff())
+    if(hasCU(1,1) && player.compChallenge != 10 && player.integration.challenge != 2) re = re.mul(10)
+    if(hasCU(0,6) && player.compChallenge != 10 && player.integration.challenge != 2) re = re.mul(COMP_UPGRADES[6].eff())
+    if(hasCU(0,8) && player.compChallenge != 10 && player.integration.challenge != 2) re = re.mul(COMP_UPGRADES[8].eff())
     if(hasYQU(7,'bought')) re = re.mul(YQUAD_UPGRADES[7].eff())
     if(hasPermUpgrade(3)) re = re.mul(PERM_UPGRADES[3].eff())
     if(hasYQU(5,'bought')) re = re.pow(YQUAD_UPGRADES[5].eff())
+    re = re.pow(NumberSets.effect(2,3))
+    if(hasChargedQU(16)) re = re.pow(1.2)
+    if(player.integration.inTheLimit) re = re.pow(Limit.challengeFactorEffects(3))
     re = re.sub(player.rootEssence).max(0).floor()
     return re
-  }else{
+  } else {
     let addend = 0
     if(inSqrtLevel(3)) addend += 0.008
     if(inSqrtLevel(4)) addend += 0.05
     let re = player.points.div(1e12).pow(0.002+addend)
-    if(hasCU(1,1) && player.compChallenge != 10) re = re.mul(10)
+    if(hasCU(1,1) && player.compChallenge != 10 && player.integration.challenge != 2) re = re.mul(10)
     if(hasPermUpgrade(3)) re = re.mul(PERM_UPGRADES[3].eff2())
+    re = re.pow(NumberSets.effect(2,3))
     if(re.gt(hasChallenge(10)?(hasZlabMilestone(3,4)?1e100:1e10):1e8)) re = re.div(hasChallenge(10)?1e10:1e8).pow(hasZlabMilestone(3,4)?0.62:0.6).mul(hasChallenge(10)?1e10:1e8)
     if(hasYQU(5,'bought')) re = re.pow(YQUAD_UPGRADES[5].eff())
+    if(hasChargedQU(16)) re = re.pow(1.2)
     if(re.gt(ceSoftcapStart())) {
       let y = new Decimal(re).log(ceSoftcapStart())
       re = new Decimal(ceSoftcapStart()).pow(y.pow(0.9))
     }
+    if(player.integration.inTheLimit) re = re.pow(Limit.challengeFactorEffects(3))
     re = re.sub(player.challengeEssence).max(0).floor()
     return re
   }
@@ -33,13 +39,13 @@ function reFormula() {
 
 function ceSoftcapStart() {
   let softcap = new Decimal("1e2000")
-  if(hasCU(1,8) && player.compChallenge != 10) softcap = softcap.mul(BCOMP_UPGRADES[8].eff())
+  if(hasCU(1,8) && player.compChallenge != 10 && player.integration.challenge != 2) softcap = softcap.mul(BCOMP_UPGRADES[8].eff())
   softcap = softcap.mul(circleEffects(3))
   return softcap;
 }
 
 function enterSqrt() {
-  if(quadFormula().gte(1) && player.compChallenge != 5 && player.yChallenge != 4){
+  if(quadFormula().gte(1) && player.compChallenge != 5 && player.yChallenge != 4 && player.integration.challenge != 2 && (player.integration.challenge != 4 || !player.integration.ic4Prestiges[0])){
     if(player.inSqrt){
       if(inSqrtLevel(2)){
         player.challengeEssence = player.challengeEssence.add(reFormula())
@@ -93,7 +99,7 @@ const SQRT_UPGRADES = {
     title: "All-Encompassing",
     desc: "Multiply x² gain based on points.",
     cost: new Decimal(333333),
-    eff() {return player.points.max(0).pow(hasZlabMilestone(2,3) ? 0.05 : 0.04).add(1)},
+    eff() {return player.points.max(0).pow(hasZlabMilestone(2,3) ? 0.05 : 0.04).add(1).min("1e5e9")},
     effectDisplay() {return format(SQRT_UPGRADES[5].eff()) + "x x² gain"},
   },
   6: {
@@ -174,6 +180,9 @@ function buySU(x) {
   if(player.rootEssence.gte(SQRT_UPGRADES[x].cost) && !hasSU(x)){
     player.rootEssence = player.rootEssence.sub(SQRT_UPGRADES[x].cost)
     player.sqrtUpgs.push(x)
+    if (x == 16 && player.inSqrt) {
+      player.epicenterLevel == "1"
+    }
   }
 }
 
@@ -201,7 +210,7 @@ const epicenterDescs = [null,
 ]
 
 function inSqrtLevel(x) {
-  return player.inSqrt && player.epicenterLevel >= x
+  return player.inSqrt && player.epicenterLevel >= x && !player.inLostIntegration
 }
 
 function ceEffect(x) {
@@ -210,14 +219,14 @@ function ceEffect(x) {
       let eff1 = player.challengeEssence.max(1).pow(2)
       if(eff1.gt(Decimal.mul(1e35,player.hasCompletedLevel4?1000:1))) eff1 = eff1.div(Decimal.mul(1e35,player.hasCompletedLevel4?1000:1)).pow(0.4).mul(Decimal.mul(1e35,player.hasCompletedLevel4?1000:1))
       if(eff1.gt("1e1500") && (!hasCU(1,8) || player.compChallenge == 10)) eff1 = eff1.div("1e1500").pow(0.3).mul("1e1500")
-      eff1 = eff1.min("1e200000")
+      if(eff1.gt("1e200000")) eff1 = eff1.div("1e200000").pow(0.1).mul("1e200000")
       return eff1
     break;
     case 2:
       let eff2 = player.challengeEssence.max(1).pow(1.2)
       if(eff2.gt(Decimal.mul(1e20,player.hasCompletedLevel4?1000:1))) eff2 = eff2.div(Decimal.mul(1e20,player.hasCompletedLevel4?1000:1)).pow(0.4).mul(Decimal.mul(1e20,player.hasCompletedLevel4?1000:1))
       if(eff2.gt("1e900") && (!hasCU(1,8) || player.compChallenge == 10)) eff2 = eff2.div("1e900").pow(0.3).mul("1e900")
-      eff2 = eff2.min("1e120000")
+      if(eff2.gt("1e120000")) eff2 = eff2.div("1e120000").pow(0.1).mul("1e120000")
       return eff2
     break;
   }
@@ -237,4 +246,12 @@ function updateRootEpicenter() {
   if(inSqrtLevel(5) && player.points.gte(1e12)) {
     player.hasCompletedLevel5 = true;
   }
+}
+
+function squareRootHardcap() {
+  let x = new Decimal("1e5e8")
+  x = x.mul(SinusoidalUpgrades[5].eff())
+  x = x.mul(Derivatives.buyables[1].eff())
+  x = x.pow(NumberSets.effect(7,1))
+  return x
 }

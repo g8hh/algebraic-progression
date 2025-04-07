@@ -2,130 +2,161 @@ const QUAD_UPGRADES = {
   1: {
     title: "Quadratic Bonus",
     desc: "Multiply production based on unspent x².",
+    chargedDesc: "Strongly multiply production based on unspent x².",
     cost: new Decimal(1),
-    eff() {return player.compChallenge == 9 ? new Decimal(1) : new Decimal(4).mul(new Decimal(1).add(player.x2.pow(new Decimal(0.5).add(COMP_CHALLENGES[1].eff())))).min(new Decimal("1e1e7").mul(Y_CHALLENGES[4].eff()))},
-    effectDisplay() {return format(QUAD_UPGRADES[1].eff()) + "x production"},
+    eff() {return player.compChallenge == 9 ? new Decimal(1) : new Decimal(4).mul(new Decimal(1).add(player.x2.pow(new Decimal(0.5).add(COMP_CHALLENGES[1].eff())))).min(player.compChalCompletions[1] >= 6 ? new Decimal(Infinity) : new Decimal("1e1e7").mul(Y_CHALLENGES[4].eff())).pow(IntegrationUpgrades.points6.isBought() ? 1.06 : 1)},
+    chargedEff() {return player.compChallenge == 9 ? new Decimal(1) : new Decimal(4).mul(new Decimal(1).add(player.x2.pow(new Decimal(0.7).add(COMP_CHALLENGES[1].eff())))).min(player.compChalCompletions[1] >= 6 ? new Decimal(Infinity) : new Decimal("1e1e7").mul(Y_CHALLENGES[4].eff())).pow(IntegrationUpgrades.points6.isBought() ? 1.06 : 1)},
+    effectDisplay() {return format(tmp.quadHovers[1] || hasChargedQU(1) ? QUAD_UPGRADES[1].chargedEff() : QUAD_UPGRADES[1].eff()) + "x production"},
   },
   2: {
     title: "Synergized Autoclickers",
     desc: "Autoclickers are stronger based on total Buildings bought.",
+    chargedDesc: "Autoclickers are significantly stronger based on total Buildings bought.",
     cost: new Decimal(1),
     eff() {return player.buyables[1].add(player.buyables[2]).add(player.buyables[3]).div(4).add(1).pow(1.2)},
-    effectDisplay() {return format(QUAD_UPGRADES[2].eff()) + "x Autoclicker effectiveness"},
+    chargedEff() {return player.buyables[1].add(player.buyables[2]).add(player.buyables[3]).div(4).add(1).pow(1e11)},
+    effectDisplay() {return format(tmp.quadHovers[2] || hasChargedQU(2) ? QUAD_UPGRADES[2].chargedEff() : QUAD_UPGRADES[2].eff()) + "x Autoclicker effectiveness"},
   },
   3: {
-    title: "Nonlinear f(x)",
-    desc: "Square f(x).",
+    title: "Nonlinear f(n)",
+    desc: "Square f(n).",
+    chargedDesc: "Power f(n) ^10.",
     cost: new Decimal(2),
     effectDisplay() {return null},
   },
   4: {
     title: "Synergized Factories",
     desc: "Point Factories are stronger based on total Buildings bought.",
+    chargedDesc: "Point Factories are significantly stronger based on total Buildings bought.",
     cost: new Decimal(10),
     eff() {return player.buyables[1].add(player.buyables[2]).add(player.buyables[3]).div(4).add(1).pow(1.3)},
-    effectDisplay() {return format(QUAD_UPGRADES[4].eff()) + "x Point Factory effectiveness"},
+    chargedEff() {return player.buyables[1].add(player.buyables[2]).add(player.buyables[3]).div(4).add(1).pow(1.5e11)},
+    effectDisplay() {return format(tmp.quadHovers[4] || hasChargedQU(4) ? QUAD_UPGRADES[4].chargedEff() : QUAD_UPGRADES[4].eff()) + "x Point Factory effectiveness"},
   },
   5: {
     title: "Automation I",
     desc: "Unlock autobuyers for Buildings.",
+    chargedDesc: "Unlock autobuyers for Buildings and add 0.00015 to the Algebraic Set sacrifice effect cap.",
     cost: new Decimal(15),
     effectDisplay() {return null},
   },
   6: {
     title: "Automation II",
     desc: "Unlock the X Autobuyer and keep X Upgrades on Quadratic.",
+    chargedDesc: "Unlock the X Autobuyer, keep X Upgrades on Quadratic, and increase the \"Variable Coupler\" amount cap by 2.",
     cost: new Decimal(20),
     effectDisplay() {return null},
   },
   7: {
     title: "Synergized Portals",
     desc: "Point Portals are stronger based on total Buildings bought.",
+    chargedDesc: "Point Portals are significantly stronger based on total Buildings bought.",
     cost: new Decimal(25),
     eff() {return player.buyables[1].add(player.buyables[2]).add(player.buyables[3]).div(4).add(1).pow(1.4)},
-    effectDisplay() {return format(QUAD_UPGRADES[7].eff()) + "x Point Portal effectiveness"},
+    chargedEff() {return player.buyables[1].add(player.buyables[2]).add(player.buyables[3]).div(4).add(1).pow(2e11)},
+    effectDisplay() {return format(tmp.quadHovers[7] || hasChargedQU(7) ? QUAD_UPGRADES[7].chargedEff() : QUAD_UPGRADES[7].eff()) + "x Point Portal effectiveness"},
   },
   8: {
     title: "Point Hoarder",
     desc: "Buying things no longer subtracts from your point amount, and you start with 25 points.",
+    chargedDesc: "Buying things no longer subtracts from your point amount, start with 25 points, and weaken the Hypercomplex Upgrade 2 softcap.",
     cost: new Decimal(50),
     effectDisplay() {return null},
   },
   9: {
     title: "Base Addend",
-    desc: "Add 0.2 to the bases of g(x) and h(x), and unlock autobuyers for Functions.",
+    desc: "Add 0.2 to the bases of g(n) and h(n), and unlock autobuyers for Functions.",
+    chargedDesc: "Add 5 to the bases of g(n), h(n), g'(n), and h'(n), and unlock autobuyers for Functions.",
     cost: new Decimal(100),
     effectDisplay() {return null},
   },
   10: {
     title: "Automation III",
     desc: "Unlock the Y autobuyer.",
+    chargedDesc: "Unlock the Y autobuyer and the 4th Natural Set effect formula is stronger.",
     cost: new Decimal(200),
     effectDisplay() {return null},
   },
   11: {
     title: "Softcap Delay",
-    desc: "The g(x) and h(x) softcaps start 10 purchases later.",
+    desc: "The g(n) and h(n) softcaps start 10 purchases later.",
+    chargedDesc: "The g(n) and h(n) softcaps start 5.00e9 purchases later.",
     cost: new Decimal(500),
     effectDisplay() {return null},
   },
   12: {
     title: "New Mechanic?",
     desc() {return `Unlock the Coordinate ${player.zUnlocked ? "Realm" : "Plane"}.`},
+    chargedDesc: "Unlock the Coordinate Realm and add 0.15 to the secondary Dilations effect hardcap.",
     cost: new Decimal(1500),
     effectDisplay() {return null},
   },
   13: {
     title: "Self-Synergy",
     desc: "Gain more points based on points.",
+    chargedDesc: "Gain more points based on points by modifying this upgrade's softcaps.",
     cost: new Decimal(10000),
     eff() {
       let x = player.points.max(0).pow(hasZlabMilestone(2,1) ? (player.inSqrt ? 0.24 : 0.23) : 0.2).add(1)
       if(!hasSDU(9)) x = x.min("1e9e6")
       if(hasSDU(9) && x.gt("1e9e6")) x = x.div("1e9e6").pow(0.75).mul("1e9e6")
+      if(x.gt("1e1e13")) x = x.div("1e1e13").pow(0.25).mul("1e1e13")
       return x
     },
-    effectDisplay() {return format(QUAD_UPGRADES[13].eff()) + "x production"},
+    chargedEff() {
+      let x = player.points.max(0).pow(hasZlabMilestone(2,1) ? (player.inSqrt ? 0.24 : 0.23) : 0.2).add(1)
+      if(!hasSDU(9)) x = x.min("1e9e6")
+      if(x.gt("1e1e13")) x = x.div("1e1e13").pow(0.4).mul("1e1e13")
+      return x
+    },
+    effectDisplay() {return format(tmp.quadHovers[13] || hasChargedQU(13) ? QUAD_UPGRADES[13].chargedEff() : QUAD_UPGRADES[13].eff()) + "x production"},
   },
   14: {
     title: "Automation IV",
-    desc: "Unlock Auto-Quadratic, and make sacrificed Y more effective.",
+    desc: "Unlock Auto-Quadratic, and make sacrificed Y 1.5x more effective.",
+    chargedDesc: "Unlock Auto-Quadratic, and make sacrificed Y 15x more effective.",
     cost: new Decimal(250000),
     effectDisplay() {return null},
   },
   15: {
     title: "Powerful Sacrifice",
     desc: "Make sacrificed X twice as effective.",
+    chargedDesc: "Make sacrificed X three times as effective.",
     cost: new Decimal(1e7),
     effectDisplay() {return null},
   },
   16: {
     title: "Uprooted",
     desc: "Unlock Square Root.",
+    chargedDesc: "Unlock Square Root and power RE and CE gains by ^1.2.",
     cost: new Decimal(1e9),
     effectDisplay() {return null},
   },
   17: {
     title: "Didn't Need It Anyway",
     desc: "The sacrificed Y effect softcap is removed.",
+    chargedDesc: "The sacrificed Y effect softcap is removed and weaken the sacrificed Z effect softcap.",
     cost: new Decimal(1e75),
     effectDisplay() {return null},
   },
   18: {
     title: "Y Divider",
     desc: "Divide the Y cost by 1.1.",
+    chargedDesc: "Divide the Y cost by 10.",
     cost: new Decimal(1e84),
     effectDisplay() {return null},
   },
   19: {
     title: "Automation V",
     desc: "Sacrificing no longer resets anything, and Auto-Sacrifice now sacrifices x².",
+    chargedDesc: "Sacrificing no longer resets anything, Auto-Sacrifice now sacrifices x², and j and k generation is powered ^1.1.",
     cost: new Decimal(1e96),
     effectDisplay() {return null},
   },
   20: {
     title: "Complicated Mathematics",
     desc: "Unlock Quadratic Formula.",
+    chargedDesc: "Unlock Quadratic Formula and QP and IP gains are raised ^1.1.",
     cost: new Decimal(1e160),
     effectDisplay() {return null},
   },
@@ -134,12 +165,19 @@ const QUAD_UPGRADES = {
 function buyQU(x) {
   if(player.x2.gte(QUAD_UPGRADES[x].cost) && !hasQU(x)){
     player.x2 = player.x2.sub(QUAD_UPGRADES[x].cost)
-    player.quadUpgs.push(x)
+    if(player.integration.challenge != 3) player.quadUpgs.push(x)
+  } else if (player.y2z2.amount.gte(1) && hasQU(x) && !hasChargedQU(x)) {
+    player.chargedQuadUpgs.push(x)
+    player.y2z2.amount = player.y2z2.amount.sub(1)
+  }
+  if(player.integration.challenge == 3 && player.integration.activations > 0 && !(x == 5 || x == 6 || x == 8 || x == 9 || x == 10 || x == 12 || x == 14 || x == 16 || x == 19 || x == 20) && !player.integration.upgsActiveInIC3.includes(x)) {
+    player.integration.activations -= 1
+    player.integration.upgsActiveInIC3.push(x)
   }
 }
 
 function hasQU(x) {
-  return player.quadUpgs.includes(x);
+  return player.quadUpgs.includes(x) && (player.integration.challenge != 3 || x == 5 || x == 6 || x == 8 || x == 9 || x == 10 || x == 12 || x == 14 || x == 16 || x == 19 || x == 20 || player.integration.upgsActiveInIC3.includes(x));
 }
 
 function rowAmt(x){
@@ -166,7 +204,7 @@ function rowAmt(x){
     break;
     case 4: // MILESTONES
       let row4=12
-      if(hasCU(1,6))row4 += 4
+      if(hasCU(1,6) || player.integrations.gte(1))row4 += 4
       if(player.zUnlocked)row4 += 4
       return row4
     break;
@@ -200,6 +238,20 @@ function rowAmt(x){
       if(player.polynomials[8].bought.gte(1)) row9++
       if(player.polynomials[9].bought.gte(1)) row9++
       return row9
+    break;
+    case 10: // SINUSOIDAL UPGRADES
+      let row10=1
+      if(SinusoidalUpgrades.has(1)) row10 += 2
+      if(SinusoidalUpgrades.has(2)) row10 += 2
+      if(SinusoidalUpgrades.has(3)) row10 += 2
+      if(SinusoidalUpgrades.has(4)) row10 += 2
+      return row10
+    break;
+    case 11: // BASIC HYPERCOMP UPGRADES
+      let row11=1
+      if(player.hypercompUpgs.basic.length >= 4)row11++
+      if(player.hypercompUpgs.basic.length >= 8)row11++
+      return row11
     break;
   }
 }
