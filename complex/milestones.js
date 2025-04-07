@@ -6,7 +6,7 @@ const MILESTONES = {
   },
   2: {
     title: "2 Complexes",
-    desc: "Unlock a new Auto-Quadratic mode.",
+    desc: "Time mode for Auto-Quadratic is always unlocked, and unlock a new Auto-Quadratic mode.",
     requirement: 2,
   },
   3: {
@@ -66,7 +66,7 @@ const MILESTONES = {
   },
   14: {
     title: "10 CC tiers",
-    desc: "Unlock Transformations (found in the Coordinate Plane subtab).",
+    desc() {return `Unlock Transformations (found in the Coordinate ${player.zUnlocked ? `Realm` : `Plane`} subtab).`},
     requirement: 10,
   },
   15: {
@@ -96,15 +96,16 @@ const MILESTONES = {
   },
   20: {
     title: "50 CC tiers",
-    desc: "Unlock Polynomials. (next update)",
+    desc: "Unlock Polynomials.",
     requirement: 50,
   },
 }
 
 function hasMilestone(x) {
+  if(player.inLostIntegration) return false
   if(x < 13) {
     return player.complexes.gte(MILESTONES[x].requirement)
   } else {
-    return ccTiers() >= MILESTONES[x].requirement
+    return ccTiers() >= MILESTONES[x].requirement || IntegrationUpgrades.mil2.isBought()
   }
 }

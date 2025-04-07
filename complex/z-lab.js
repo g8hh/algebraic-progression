@@ -1,8 +1,11 @@
 function zpowerGen() {
-  let zp = Decimal.pow(Decimal.add(2,player.zlab.empowerments.div(4)),player.z)
+  let zp = Decimal.pow(Decimal.add(2,player.zlab.empowerments.div(4).mul(NumberSets.sacrificeValueEffects(3))),player.z)
   zp = zp.mul(QP_BUYABLES[7].eff())
   zp = zp.mul(circleEffects(2))
+  zp = zp.mul(RebuyableIntegrationUpgrades[1].eff())
   if(hasPermUpgrade(7)) zp = zp.mul(PERM_UPGRADES[7].eff())
+  if(hasYQU(20,'bought')) zp = zp.pow(YQUAD_UPGRADES[20].eff())
+  zp = zp.mul(TemporalPlane.totalEffect())
   return zp
 }
 
@@ -27,7 +30,7 @@ const COLLIDERS = {
       "<b>Level 1</b><br>Add 0.03 to the exponent of Quadratic Upgrade 13 (+0.04 in Square Root)",
       "<b>Level 3</b><br>Add 0.2 to the exponent of Square Root Upgrade 2",
       "<b>Level 6</b><br>Add 0.01 to the exponent of Square Root Upgrade 5",
-      "<b>Level 12</b><br>Each \"Function Enhancer\" now delays the g(x) and h(x) softcaps by 6 levels",
+      "<b>Level 12</b><br>Each \"Function Enhancer\" now delays the g(n) and h(n) softcaps by 6 levels",
       "<b>Level 20</b><br>The effect from Complex Upgrade 5 is raised ^4",
     ],
   },
@@ -50,7 +53,7 @@ const COLLIDERS = {
       null,
       "<b>Level 1</b><br>Delay the x<sup>2</sup> Doubler cost superscaling start by 200 purchases",
       "<b>Level 3</b><br>Delay the RE Doubler cost superscaling start by 150 purchases",
-      "<b>Level 6</b><br>Power the first UP purchase button costs by 0.8",
+      "<b>Level 6</b><br>Power the UP purchase button costs by 0.8",
       "<b>Level 12</b><br>Power the Translation cost by 0.9",
       "<b>Level 20</b><br>The Z cost scaling is divided by 1.5",
     ],
@@ -58,7 +61,7 @@ const COLLIDERS = {
 }
 
 function zlabBuyableCosts(x) {
-  if(player.zlab.levels[x] >= 20) {
+  if(player.zlab.levels[x] >= 20 && x != 5) {
     return new Decimal(Infinity);
   }
   switch (x) {
@@ -77,10 +80,14 @@ function zlabBuyableCosts(x) {
     case 5:
       return new Decimal(1e110).mul(Decimal.pow(1e5,player.zlab.empowerments.pow(2)))
     break;
+    case 6:
+      return new Decimal("1e3800").mul(Decimal.pow(1e10,player.zlab.levels[5]))
+    break;
   }
 }
 
 function hasZlabMilestone(collider,x) {
+  if(player.inLostIntegration) return false
   switch (x) {
     case 1:
       return player.zlab.levels[collider] >= 1;
@@ -106,6 +113,11 @@ function increaseLevel(x) {
       player.i = player.i.sub(zlabBuyableCosts(x))
       player.zlab.empowerments = player.zlab.empowerments.add(1)
     }
+  } else if (x == 6) {
+    if(player.zlab.particles[5].gte(zlabBuyableCosts(x))) {
+      player.zlab.particles[5] = player.zlab.particles[5].sub(zlabBuyableCosts(x))
+      player.zlab.levels[5]++
+    }
   } else {
     if(player.zlab.particles[x].gte(zlabBuyableCosts(x))) {
       player.zlab.particles[x] = player.zlab.particles[x].sub(zlabBuyableCosts(x))
@@ -115,5 +127,5 @@ function increaseLevel(x) {
 }
 
 function totalColliderLevels() {
-  return player.zlab.levels[1]+player.zlab.levels[2]+player.zlab.levels[3]+player.zlab.levels[4]
+  return player.zlab.levels[1]+player.zlab.levels[2]+player.zlab.levels[3]+player.zlab.levels[4]+player.zlab.levels[5]
 }

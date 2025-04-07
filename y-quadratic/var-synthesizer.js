@@ -4,16 +4,20 @@ function varSynthUnlockCosts(x,type) {
       return type === 'y2' ? new Decimal(1e25) : 39
     break;
     case 2:
-      return type === 'y2' ? new Decimal(1e37) : 42
+      return type === 'y2' ? new Decimal(1e37) : 45
     break;
     case 3:
-      return type === 'y2' ? new Decimal(1e45) : 46
+      return type === 'y2' ? new Decimal(1e53) : 50
     break;
   }
 }
 
 function hasChargedUpgrade(x) {
   return player.varSynth.chargedXUpgs.includes(x);
+}
+
+function xyBoost() {
+  return Decimal.pow(1e10,player.varSynth.totalxy)
 }
 
 function x2y2Formula() {
@@ -36,6 +40,10 @@ function circleGen() {
   cir = cir.mul(circleEffects(5))
   if(player.varSynth.unlocked[2]) cir = cir.mul(player.varSynth.revolutions.pow(0.25).add(1))
   cir = cir.mul(Y_CHALLENGES[1].eff())
+  cir = cir.mul(NumberSets.effect(4,2))
+  cir = cir.mul(TemporalPlane.totalEffect())
+  if(IntegrationUpgrades.yquadratic2.isBought()) cir = cir.mul(IntegrationUpgrades.yquadratic2.eff())
+  if(IntegrationUpgrades.yquadratic7.isBought()) cir = cir.mul(xyBoost())
   return cir
 }
 
@@ -59,6 +67,12 @@ function circleEffects(x) {
     case 5: // Circles gain
       return player.varSynth.circles.pow(0.3).add(1)
     break;
+    case 6: // Limit score gain
+      return player.varSynth.circles.add(1).log10().div(1000).add(1)
+    break;
+    case 7: // dx gain
+      return player.varSynth.circles.add(1).log(2).div(1000).add(1)
+    break;
   }
 }
 
@@ -75,13 +89,25 @@ function nextCircleMilestone() {
     return "Next circle milestone at " + format(tmp.circleMilestones[4]) + "."
   } else if (hasCircleMilestone(4) && !hasCircleMilestone(5)) {
     return "Next circle milestone at " + format(tmp.circleMilestones[5]) + "."
-  } else {
+  } else if (hasCircleMilestone(5) && !hasCircleMilestone(6) && IntegrationUpgrades.yquadratic9.isBought()) {
+    return "Next circle milestone at " + format(tmp.circleMilestones[6]) + "."
+  } else if (hasCircleMilestone(6) && !hasCircleMilestone(7) && IntegrationUpgrades.yquadratic9.isBought()) {
+    return "Next circle milestone at " + format(tmp.circleMilestones[7]) + "."
+  } else if (hasCircleMilestone(5) && (!IntegrationUpgrades.yquadratic9.isBought() || hasCircleMilestone(7))) {
     return "You have all of the circle milestones."
   }
 }
 
 function iExpGen() {
-  return new Decimal(0.5).mul(Decimal.pow(2,player.varSynth.iExpBuyables[1])).mul(Y_CHALLENGES[2].eff()).mul(hasCircleMilestone(4)?circleEffects(4):1)
+  let rev = new Decimal(0.5).mul(Decimal.pow(2,player.varSynth.iExpBuyables[1]))
+  rev = rev.mul(Y_CHALLENGES[2].eff())
+  if(hasCircleMilestone(4)) rev = rev.mul(circleEffects(4))
+  rev = rev.mul(NumberSets.effect(4,3))
+  if(IntegrationUpgrades.yquadratic4.isBought()) rev = rev.mul(IntegrationUpgrades.yquadratic4.eff())
+  if(IntegrationUpgrades.yquadratic7.isBought()) rev = rev.mul(xyBoost())
+  rev = rev.mul(Decimal.pow(1e10,player.varSynth.iExpBuyables[3]))
+  rev = rev.mul(TemporalPlane.totalEffect())
+  return rev
 }
 
 function iExpEffects(x) {
@@ -99,10 +125,19 @@ function iExpEffects(x) {
 }
 
 function revBuyableCosts(x) {
-  if(x == 1) {
-    return new Decimal(10).mul(Decimal.pow(4,player.varSynth.iExpBuyables[x]))
-  } else {
-    return new Decimal(100).mul(Decimal.pow(3,player.varSynth.iExpBuyables[x]))
+  switch (x) {
+    case 1:
+      return new Decimal(10).mul(Decimal.pow(4,player.varSynth.iExpBuyables[x]))
+    break;
+    case 2:
+      return new Decimal(100).mul(Decimal.pow(3,player.varSynth.iExpBuyables[x]))
+    break;
+    case 3:
+      return new Decimal("1e5000").mul(Decimal.pow("1e100",player.varSynth.iExpBuyables[x]))
+    break;
+    case 4:
+      return new Decimal("1e10000").mul(Decimal.pow("1e5000",player.varSynth.iExpBuyables[x]))
+    break;
   }
 }
 
@@ -111,4 +146,8 @@ function buyRevBuyable(x) {
     player.varSynth.revolutions = player.varSynth.revolutions.sub(revBuyableCosts(x))
     player.varSynth.iExpBuyables[x] = player.varSynth.iExpBuyables[x].add(1)
   }
+}
+
+function hasChargedQU(x) {
+  return player.chargedQuadUpgs.includes(x);
 }
