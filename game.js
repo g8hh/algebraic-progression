@@ -1425,7 +1425,7 @@ function buyMax() {
   
   // VARIABLES
   if(player.integration.autobuyers.w && player.z.gte(wCost())) while(player.z.gte(wCost())) buyVariable('w')
-  if(player.challenge != 10 && player.compChallenge != 5 && player.y.gte(zCost())) {
+  if(player.challenge != 10 && player.compChallenge != 5 && player.y.gte(zCost()) && !player.inLostIntegration) {
     let a = new Decimal(10).div(player.yChallenge == 6 ? 1 : zDivision())
     let b = new Decimal(101).div(player.yChallenge == 6 ? 1 : zDivision())
     let c = new Decimal(2222).div(player.yChallenge == 6 ? 1 : zDivision()).sub(player.y.max(1))
