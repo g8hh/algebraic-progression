@@ -475,5 +475,16 @@ const IntegrationChallenges = {
     interactWithCC(compChal)
     startChallenge(chal)
     player.integration.challenge = 1
+  },
+  updateIC5() {
+    if(IntegrationUpgrades.ic5.isBought() && player.i.gte(IntegrationChallenges[5].goal())) {
+      if(player.synthDivUpgs[0][1].eq(0) && player.synthDivUpgs[0][2].eq(0) && player.synthDivUpgs[0][3].eq(0) && player.integration.chalCompletions[5] < 1) {player.integration.chalCompletions[5] = 1; return}
+      if(player.synthDivUpgs[0][1].eq(0) && player.synthDivUpgs[0][2].eq(0) && player.synthDivUpgs[0][3].eq(0) && player.zlab.empowerments.eq(0) && player.integration.chalCompletions[5] >= 1 && player.integration.chalCompletions[5] < 2) {player.integration.chalCompletions[5] = 2; return}
+      if(player.synthDivUpgs[0][1].eq(0) && player.synthDivUpgs[0][2].eq(0) && player.synthDivUpgs[0][3].eq(0) && player.zlab.empowerments.eq(0) && player.b.eq(0) && player.integration.chalCompletions[5] >= 2 && player.integration.chalCompletions[5] < 3) {player.integration.chalCompletions[5] = 3; return}
+      if(player.synthDivUpgs[0][1].eq(0) && player.synthDivUpgs[0][2].eq(0) && player.synthDivUpgs[0][3].eq(0) && player.zlab.empowerments.eq(0) && player.b.eq(0) && player.hypercompUpgs.dynamic.length < 4 && player.integration.chalCompletions[5] >= 3 && player.integration.chalCompletions[5] < 4) {player.integration.chalCompletions[5] = 4; return}
+      if(player.synthDivUpgs[0][1].eq(0) && player.synthDivUpgs[0][2].eq(0) && player.synthDivUpgs[0][3].eq(0) && player.zlab.empowerments.eq(0) && player.b.eq(0) && player.hypercompUpgs.dynamic.length < 4 && (player.gamePrestigeTimes[6].lt(3.1536e13) || player.gamePrestigeTimes[8].lt(3.1536e13)) && player.integration.chalCompletions[5] >= 4 && player.integration.chalCompletions[5] < 5) {player.integration.chalCompletions[5] = 5; return}
+      if(player.synthDivUpgs[0][1].eq(0) && player.synthDivUpgs[0][2].eq(0) && player.synthDivUpgs[0][3].eq(0) && player.zlab.empowerments.eq(0) && player.b.eq(0) && player.hypercompUpgs.dynamic.length < 4 && (player.gamePrestigeTimes[6].lt(3.1536e13) || player.gamePrestigeTimes[8].lt(3.1536e13)) && player.polynomials[10].amount.lt(1) && player.integration.chalCompletions[5] >= 5 && player.integration.chalCompletions[5] < 6) {player.integration.chalCompletions[5] = 6; return}
+      if(player.synthDivUpgs[0][1].eq(0) && player.synthDivUpgs[0][2].eq(0) && player.synthDivUpgs[0][3].eq(0) && player.zlab.empowerments.eq(0) && player.b.eq(0) && player.hypercompUpgs.dynamic.length < 4 && (player.gamePrestigeTimes[6].lt(3.1536e13) || player.gamePrestigeTimes[8].lt(3.1536e13)) && player.polynomials[10].amount.lt(1) && player.integration.challenge == 3 && player.integration.chalCompletions[5] >= 6 && player.integration.chalCompletions[5] < 7) {player.integration.chalCompletions[5] = 7; return}
+    }
   }
 }
