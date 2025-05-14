@@ -351,6 +351,14 @@ select,option{
   transition-duration: 0.2s;
 }
 
+.tabPurecomp {
+  font-size: 20px;
+  border-color: #5dde5d;
+  color: white;
+  background: linear-gradient(#006600, #00d000);
+  transition-duration: 0.2s;
+}
+
 .tabHypercomp {
   font-size: 20px;
   border-color: #ff0000;
@@ -415,7 +423,7 @@ select,option{
   color: #A1C7CC;
 }
 
-.prestige2:hover, .tabComp:hover, .tabMixedcomp:hover {
+.prestige2:hover, .tabComp:hover, .tabMixedcomp:hover, .tabPurecomp:hover {
   background-color: #5dde5d;
   background: #5dde5d;
   color: #006600;

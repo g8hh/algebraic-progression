@@ -154,7 +154,7 @@ const PythagoreanTriples = {
       req: 10.6,
     },
     3: {
-      desc: "Gain more Pythagorean Essence based on W",
+      desc() {return `Gain more Pythagorean Essence based on ${player.wUnlocked ? `W` : `???`}`},
       req: 31,
     },
     4: {

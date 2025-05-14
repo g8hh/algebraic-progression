@@ -319,11 +319,11 @@ function tbookDescriptions(x,world) {
         <b>S.D. Upgrade 3 Base Cost Formula:</b> 7,500 * 30<sup>purchases</sup><br><br>
         The second repeatable Synthetic Divsion Upgrade caps at 20 purchases and<br>
         the third repeatable Synthetic Division Upgrade caps at 14 purchases.`, // synthetic division
-        `Once you obtain 1e270,000 i, 1e510 y<sup>2</sup>, and 1 x<sup>10</sup>, you can Integrate for dx, empty sets, and 1 hole.<br>
+        `Once you obtain 1e270,000 i, 1e500 y<sup>2</sup>, and 1 x<sup>10</sup>, you can Integrate for dx, empty sets, and 1 hole.<br>
         Integration, similarly to previous layers, resets almost everything before it, including the first 60 Achievements.<br>
         You still keep your Challenge records and some things underneath the General header in the Statistics tab. dx and empty sets<br>
         will become your most important currencies from this point forward.<br><br>
-        <b>Base dx Gain Formula:</b> 5 * (1000<sup>(log<sub>10</sub>(max(i,1))/270000)-1</sup>) * (10<sup>(log<sub>10</sub>(max(y<sup>2</sup>,1))/510)-1</sup>)<br>
+        <b>Base dx Gain Formula:</b> 5 * (1000<sup>(log<sub>10</sub>(max(i,1))/270000)-1</sup>) * (10<sup>(log<sub>10</sub>(max(y<sup>2</sup>,1e510))/510)-1</sup>)<br>
         <b>Base Empty Sets Gain Formula:</b> i<sup>1/270000</sup>/10 * log<sub>10</sub>(PP+1)/500 * max(SE<sup>1/50</sup>/10,1) * max(complexes<sup>1/10</sup>/10,1)<br><br>
         Empty sets are used for assigning Number Sets.<br>
         dx is used for unlocking effect slots and type slots and purchasing Integration Upgrades.`, // integration
@@ -525,7 +525,7 @@ function tbookDescriptions(x,world) {
         `Upgrades are very important in Algebraic Progression, and are present throughout the entire game in many different forms.<br>
         This section is updated as you unlock new Upgrade types.${player.integrations.gte(1) ? `<br>` : ` `}${player.totali.gte(1) || player.integrations.gte(1) ? `The exception${player.integrations.gte(1) ? `s are` : ` is`} Complex Upgrades${player.integrations.gte(1) ? ` and Fractal Arm Upgrades` : ``}, which have their own section${player.integrations.gte(1) ? `s` : ``}.` : ``}<br>
         Upgrade types are in subtabs with an identical or similar name, with ${player.totali.gte(1) ? `` : `the`} exception${player.totali.gte(1) ? "s" : ""} being X Upgrades (found in the Upgrades tab)
-        ${player.totali.gte(1) || player.integrations.gte(1) ? "<br>and Basic Complex Upgrades (found in the Complex Upgrades tab)." : ""}<br><br>
+        ${player.totali.gte(1) || player.integrations.gte(1) ? "<br>and Basic Complex Upgrades (found in the Complex Upgrades tab)" : ""}.<br><br>
         <b>X Upgrades:</b> X Upgrades are upgrades that can be bought with x. There are eight in total. ${player.totalx2.gte(1) || player.totali.gte(1) ? `They also reset on Reset.` : ``}
         ${player.totalx2.gte(1) || player.totali.gte(1) || player.integrations.gte(1) ? `<br><b>Reset Table Upgrades:</b> Reset Table Upgrades are upgrades that can be bought with RP.<br>Some have requirements to be met before they can be bought.<br>They are kept on Reset, and there are 25 in total. ${player.totali.gte(1) || player.integrations.gte(1) ? `However, they reset on Complex.` : ``}` : ``}
         ${player.totali.gte(1) || player.integrations.gte(1) ? `<br><b>Basic Complex Upgrades:</b> Basic Complex Upgrades are upgrades that can be bought with i.<br>They are kept on Reset and Complex, and there are 9 in total.` : ``}

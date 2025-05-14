@@ -77,7 +77,7 @@ const COMP_CHALLENGES = {
     desc() {return "The multiplier from \"Quadratic Bonus\" is 1x. QP gain is raised ^0.5. You can only buy up to " + formatWhole(new Decimal(20).sub(player.compChalCompletions[9]*5).max(0)) + " Quadratic Formula buyables, and the Quadratic Formula Buyable autobuyer is disabled."},
     goals: [new Decimal("1e41400"),new Decimal("1e70700"),new Decimal("1e150300"),new Decimal("1e520000"),new Decimal("1e570000"),new Decimal("1e1.1e12"),new Decimal(Infinity)],
     rewardDesc: "Power Quadratic Power gain.",
-    eff() {return player.compChalCompletions[4] >= 6 ? new Decimal(3.6) : Decimal.add(1,new Decimal(player.compChalCompletions[9]).mul(0.3))},
+    eff() {return player.compChalCompletions[9] >= 6 ? new Decimal(3.6) : Decimal.add(1,new Decimal(player.compChalCompletions[9]).mul(0.3))},
     effectDisplay() {return "^" + format(COMP_CHALLENGES[9].eff()) + " Quadratic Power gain"},
     unlockCost: new Decimal(50),
   },

@@ -1,4 +1,13 @@
 const UnitCircle = {
+  unlock() {
+    if(player.triangles.gte(2e55)) {
+      player.unitCircle.unlocked = true
+      $.notify('A new subtab appears...check the Y-Quadratic tab!', {
+        style: 'apcurrent',
+        className:'unlock',
+      });
+    }
+  },
   trigFunctionsEffectText(x) {
     switch (x) {
       case 1:
