@@ -269,7 +269,7 @@ function buyUP(x) {
 
 function respec() {
   if (!player.options[22] || confirm("Are you sure you want to respec your Complex Upgrades? You will go Complex with no reward!")) {
-    player.upgradePoints[0] = player.upgradePoints[1].sub(player.unlocked != 0 ? COMP_CHALLENGES[player.unlocked].unlockCost : new Decimal(0))
+    player.upgradePoints[0] = player.upgradePoints[1].sub(player.unlocked != 0 ? (player.inLostIntegration ? ComplexChallengesLI[player.unlocked].unlockCost : COMP_CHALLENGES[player.unlocked].unlockCost) : new Decimal(0))
     if(player.compUpgs[0].length == 0 && !hasSecretAchievement(4) && player.fourthRowCompUpgs[1]+player.fourthRowCompUpgs[2]+player.fourthRowCompUpgs[3]+player.fourthRowCompUpgs[4] == 0) {
       player.secretAchievements.push('4')
       $.notify("Secret Achievement Unlocked: Not Quite Right", {

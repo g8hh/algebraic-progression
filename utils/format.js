@@ -6,9 +6,10 @@ function exponentialFormat(num, precision, mantissa = true) {
         m = new Decimal(1)
         e = e.add(1)
     }
+    let eOld = e
     e = (e.gte(1e9) ? format(e, 3) : (e.gte(player.notation == 3 ? 1000 : 10000) ? commaFormat(e, player.notation == 3 ? 2 : 0) : e.toStringWithDecimalPlaces(player.notation == 3 ? 2 : 0)))
     if (mantissa)
-        return (player.notation == 3 ? "" : m.toStringWithDecimalPlaces(precision)) + "e" + e
+        return (player.notation == 3 || eOld.gte(1e14) ? "" : m.toStringWithDecimalPlaces(precision)) + "e" + e
     else return "e" + e
 }
 
@@ -99,7 +100,8 @@ function formatTime(s) {
     else if (s < 3600) return formatWhole(Math.floor(s / 60)) + " minutes and " + format(s % 60) + " seconds"
     else if (s < 86400) return formatWhole(Math.floor(s / 3600)) + " hours, " + formatWhole(Math.floor(s / 60) % 60) + " minutes, and " + format(s % 60) + " seconds"
     else if (s < 31536000) return formatWhole(Math.floor(s / 86400) % 365) + " days, " + formatWhole(Math.floor(s / 3600) % 24) + " hours, " + formatWhole(Math.floor(s / 60) % 60) + " minutes, and " + format(s % 60) + " seconds"
-    else return formatWhole(Math.floor(s / 31536000)) + " years, " + formatWhole(Math.floor(s / 86400) % 365) + " days, " + formatWhole(Math.floor(s / 3600) % 24) + " hours, " + formatWhole(Math.floor(s / 60) % 60) + " minutes, and " + format(s % 60) + " seconds"
+    else if (s < 31536000000) return formatWhole(Math.floor(s / 31536000)) + " years, " + formatWhole(Math.floor(s / 86400) % 365) + " days, " + formatWhole(Math.floor(s / 3600) % 24) + " hours, " + formatWhole(Math.floor(s / 60) % 60) + " minutes, and " + format(s % 60) + " seconds"
+    else return format(Math.floor(s / 31536000)) + " years"
 }
 
 function simpleFormatTime(s) {

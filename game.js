@@ -585,13 +585,15 @@ function mainLoop(){
     player.integration.upgsActiveInIC3 = []
     player.integration.activations += 1
   }
-  if(Derivatives.jnFormula().gte(player.integration.derivatives.highestReached)) player.integration.derivatives.highestReached = Derivatives.jnFormula()
-  if(PythagoreanTriples.hasMilestone(6)) player.integration.derivatives[0] = player.integration.derivatives[0].add(player.integration.derivatives[1].mul(Derivatives.gainMult()).pow(hasPermUpgrade(15) ? 1.01 : 1).mul(diff))
-  if(!player.inLostIntegration) {
-    player.integration.derivatives[1] = player.integration.derivatives[1].add(player.integration.derivatives[2].mul(Derivatives.gainMult()).pow(hasPermUpgrade(15) ? 1.01 : 1).mul(diff))
-    player.integration.derivatives[2] = player.integration.derivatives[2].add(player.integration.derivatives[3].mul(Derivatives.gainMult()).pow(hasPermUpgrade(15) ? 1.01 : 1).mul(diff))
-    if(player.integration.derivatives.highestReached.lt(5e6)) player.integration.derivatives[2] = player.integration.derivatives[2].add(Derivatives.gainFormula().mul(diff))
-    if(player.integration.derivatives.highestReached.gte(5e6)) player.integration.derivatives[3] = player.integration.derivatives[3].add(Derivatives.gainFormula().mul(diff))
+  if(player.integration.chalCompletions[3] >= 10) {
+    if(Derivatives.jnFormula().gte(player.integration.derivatives.highestReached)) player.integration.derivatives.highestReached = Derivatives.jnFormula()
+    if(PythagoreanTriples.hasMilestone(6)) player.integration.derivatives[0] = player.integration.derivatives[0].add(player.integration.derivatives[1].mul(Derivatives.gainMult()).pow(hasPermUpgrade(15) ? 1.01 : 1).mul(diff))
+    if(!player.inLostIntegration) {
+      player.integration.derivatives[1] = player.integration.derivatives[1].add(player.integration.derivatives[2].mul(Derivatives.gainMult()).pow(hasPermUpgrade(15) ? 1.01 : 1).mul(diff))
+      player.integration.derivatives[2] = player.integration.derivatives[2].add(player.integration.derivatives[3].mul(Derivatives.gainMult()).pow(hasPermUpgrade(15) ? 1.01 : 1).mul(diff))
+      if(player.integration.derivatives.highestReached.lt(5e6)) player.integration.derivatives[2] = player.integration.derivatives[2].add(Derivatives.gainFormula().mul(diff))
+      if(player.integration.derivatives.highestReached.gte(5e6)) player.integration.derivatives[3] = player.integration.derivatives[3].add(Derivatives.gainFormula().mul(diff))
+    }
   }
   player.pythTriples.essence = player.pythTriples.essence.add(PythagoreanTriples.peGen().mul(diff))
   if(Alterations.has(2)) {
@@ -609,15 +611,6 @@ function mainLoop(){
     if(SinusoidalPrestige.trianglesFormula().gte(1)) {
       player.triangles = player.triangles.add(SinusoidalPrestige.trianglesFormula().div(100).mul(diff).mul(BasicHypercompUpgrades.has(8) ? TemporalPlane.totalEffect() : 1))
     }
-  }
-  if(IntegrationUpgrades.ic5.isBought() && player.i.gte(IntegrationChallenges[5].goal())) {
-    if(player.synthDivUpgs[0][1].eq(0) && player.synthDivUpgs[0][2].eq(0) && player.synthDivUpgs[0][3].eq(0) && player.integration.chalCompletions[5] < 1) player.integration.chalCompletions[5]++
-    if(player.synthDivUpgs[0][1].eq(0) && player.synthDivUpgs[0][2].eq(0) && player.synthDivUpgs[0][3].eq(0) && player.zlab.empowerments.eq(0) && player.integration.chalCompletions[5] >= 1 && player.integration.chalCompletions[5] < 2) player.integration.chalCompletions[5]++
-    if(player.synthDivUpgs[0][1].eq(0) && player.synthDivUpgs[0][2].eq(0) && player.synthDivUpgs[0][3].eq(0) && player.zlab.empowerments.eq(0) && player.b.eq(0) && player.integration.chalCompletions[5] >= 2 && player.integration.chalCompletions[5] < 3) player.integration.chalCompletions[5]++
-    if(player.synthDivUpgs[0][1].eq(0) && player.synthDivUpgs[0][2].eq(0) && player.synthDivUpgs[0][3].eq(0) && player.zlab.empowerments.eq(0) && player.b.eq(0) && player.hypercompUpgs.dynamic.length < 4 && player.integration.chalCompletions[5] >= 3 && player.integration.chalCompletions[5] < 4) player.integration.chalCompletions[5]++
-    if(player.synthDivUpgs[0][1].eq(0) && player.synthDivUpgs[0][2].eq(0) && player.synthDivUpgs[0][3].eq(0) && player.zlab.empowerments.eq(0) && player.b.eq(0) && player.hypercompUpgs.dynamic.length < 4 && (player.gamePrestigeTimes[6].lt(3.1536e13) || player.gamePrestigeTimes[8].lt(3.1536e13)) && player.integration.chalCompletions[5] >= 4 && player.integration.chalCompletions[5] < 5) player.integration.chalCompletions[5]++
-    if(player.synthDivUpgs[0][1].eq(0) && player.synthDivUpgs[0][2].eq(0) && player.synthDivUpgs[0][3].eq(0) && player.zlab.empowerments.eq(0) && player.b.eq(0) && player.hypercompUpgs.dynamic.length < 4 && (player.gamePrestigeTimes[6].lt(3.1536e13) || player.gamePrestigeTimes[8].lt(3.1536e13)) && player.polynomials[10].bought.lt(1) && player.integration.chalCompletions[5] >= 5 && player.integration.chalCompletions[5] < 6) player.integration.chalCompletions[5]++
-    if(player.synthDivUpgs[0][1].eq(0) && player.synthDivUpgs[0][2].eq(0) && player.synthDivUpgs[0][3].eq(0) && player.zlab.empowerments.eq(0) && player.b.eq(0) && player.hypercompUpgs.dynamic.length < 4 && (player.gamePrestigeTimes[6].lt(3.1536e13) || player.gamePrestigeTimes[8].lt(3.1536e13)) && player.polynomials[10].bought.lt(1) && player.integration.challenge == 3 && player.integration.chalCompletions[5] >= 6 && player.integration.chalCompletions[5] < 7) player.integration.chalCompletions[5]++
   }
   if(IntegrationChallenges[5].eff().gte(player.extraQuaternions)) {
     player.quaternions[0] = player.quaternions[0].add(IntegrationChallenges[5].eff().sub(player.extraQuaternions))
@@ -717,6 +710,7 @@ function mainLoop(){
   compChalDetection() //checks if you failed CC4
   if(player.integration.automationCore.running && player.integrations.gte(15) && !player.inLostIntegration) runAutomationCoreScript() //runs the automation core script
   updateComplexSubtab() //switches your tab depending on whether hypercomplex subtabs are on
+  IntegrationChallenges.updateIC5() //updates integration challenge 5 completions
   if(player.inLostIntegration) updateExponentialCurve() // updates geometric sequence values for Exponential Curve
   // showAllTabs() //disables tab hiding after unlocking Synthetic Division
   
@@ -1431,7 +1425,7 @@ function buyMax() {
   
   // VARIABLES
   if(player.integration.autobuyers.w && player.z.gte(wCost())) while(player.z.gte(wCost())) buyVariable('w')
-  if(player.challenge != 10 && player.compChallenge != 5 && player.y.gte(zCost())) {
+  if(player.challenge != 10 && player.compChallenge != 5 && player.y.gte(zCost()) && !player.inLostIntegration) {
     let a = new Decimal(10).div(player.yChallenge == 6 ? 1 : zDivision())
     let b = new Decimal(101).div(player.yChallenge == 6 ? 1 : zDivision())
     let c = new Decimal(2222).div(player.yChallenge == 6 ? 1 : zDivision()).sub(player.y.max(1))
@@ -1768,7 +1762,7 @@ function checkForEndgame() {
 
 function modifiedReality() {
   if (player.zUnlocked) {
-    if(!player.polynomials[10].boughtThisRun) document.title = "Algebraic Progression v3.0"
+    if(!player.polynomials[10].boughtThisRun) document.title = "Algebraic Progression v3.0.1"
     document.getElementById("favicon").setAttribute("href","https://cdn.glitch.global/f11707a7-4c2e-4e11-b957-162b8f56f334/logo2.png?v=1743469008828");
     tmp.textbook.names[9] = "Coordinate Realm (v1.1)"
     setTimeout(() => {
@@ -1780,7 +1774,7 @@ function modifiedReality() {
       }
     }, Math.random()*100);
   } else {
-    document.title = "Algebraic Progression v3.0"
+    document.title = "Algebraic Progression v3.0.1"
     document.getElementById("favicon").setAttribute("href","https://cdn.glitch.global/f11707a7-4c2e-4e11-b957-162b8f56f334/logo1.png?v=1743469004406");
     tmp.textbook.names[9] = "Coordinate Plane (v1.1)"
   }
@@ -1839,15 +1833,17 @@ function averagePrestigeStats(x) {
   let gain = new Decimal(0)
   let time = new Decimal(0)
   let gameTime = new Decimal(0)
+  let gainOverTime = new Decimal(0)
   for (let i = 0; i < 10; i++) {
     gain = gain.add(player.last10runs[x][i].gain)
     time = time.add(player.last10runs[x][i].time)
     gameTime = gameTime.add(player.last10runs[x][i].gameTime)
+    gainOverTime = gainOverTime.add(player.last10runs[x][i].gain.div(player.last10runs[x][i].time))
   }
   gain = gain.div(10)
   time = time.div(10)
   gameTime = gameTime.div(10)
-  let gainOverTime = gain.div(time)
+  gainOverTime = gainOverTime.div(10)
   return {gain:gain,time:time,gameTime:gameTime,gainOverTime:gainOverTime}
 }
 
@@ -2312,7 +2308,7 @@ function subtabArray() {
     if(player.subtabDisplays[6][0]) arr[6].push("milestones")
     if(player.subtabDisplays[6][1]) arr[6].push("generators")
     if(player.subtabDisplays[6][2]) arr[6].push("fractalarm")
-    if(player.quaternions[1].gte(180) && player.subtabDisplays[6][3]) arr[6].push("minibrots")
+    if(player.quaternions[1].gte(150) && player.subtabDisplays[6][3]) arr[6].push("minibrots")
     if(player.quaternions[1].gte(750) && player.subtabDisplays[6][4]) arr[6].push("challenges")
   }
 
@@ -2392,6 +2388,7 @@ function randomSymbol() {
 
 function cueEndingCutscene() {
   player.options[16] = false
+  showAllTabs()
   setTimeout(()=>{player.tabDisplays[11] = false; if(player.currentTab == "integration") player.currentTab = "comp"}, 2000)
   setTimeout(()=>{player.tabDisplays[9] = false; if(player.currentTab == "comp") player.currentTab = "yquad"}, 2500)
   setTimeout(()=>{player.tabDisplays[8] = false; if(player.currentTab == "yquad") player.currentTab = "quad"}, 3000)

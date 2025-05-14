@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>代数递进重制版 - Algebraic Progression v3.0</title>
+    <title>代数递进重制版 - Algebraic Progression v3.0.1</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content="Algebraic Progression by randomtuba" />
@@ -174,7 +174,7 @@
     <button id="tabAuto" class="tabLI" v-if="hasQU(10) && player.inLostIntegration && player.tabDisplays[10]" onclick="tab('automation')">Automation</button>
     <button id="tab7" :class="{tabQua:!player.inLostIntegration,resetButton:player.inLostIntegration}" style="font-size:20px" v-if="(player.totalx2.gte(1) || player.totali.gte(1) || player.integrations.gte(1)) && player.tabDisplays[7] && subtabArray()[0].length > 0" onclick="tab('quad')">{{player.inLostIntegration ? "Resetting" : "Quadratic"}}</button>
     <button id="tab8" :class="{tabYqua:!player.inLostIntegration,yQuadButton:player.inLostIntegration}" style="font-size:20px" v-if="(player.totaly2.gte(1) || player.integrations.gte(1)) && player.tabDisplays[8] && subtabArray()[3].length > 0" onclick="tab('yquad')">Y-Quadratic</button>
-    <button id="tab9" :class="{tabComp:!player.wUnlocked && !player.inLostIntegration,tabMixedcomp:player.wUnlocked && !player.inLostIntegration,complexButton:player.inLostIntegration}" style="font-size:20px" v-if="(player.totali.gte(1) || player.integrations.gte(1)) && player.tabDisplays[9] && subtabArray()[1].length > 0" onclick="tab('comp')">Complex</button>
+    <button id="tab9" :class="{tabComp:!player.wUnlocked && !player.inLostIntegration,tabMixedcomp:player.wUnlocked && !player.options[26] && !player.inLostIntegration,tabPurecomp:player.wUnlocked && player.options[26] && !player.inLostIntegration,complexButton:player.inLostIntegration}" style="font-size:20px" v-if="(player.totali.gte(1) || player.integrations.gte(1)) && player.tabDisplays[9] && subtabArray()[1].length > 0" onclick="tab('comp')">Complex</button>
     <button id="tab10" class="tabPoly" v-if="hasMilestone(20) && player.tabDisplays[10] && subtabArray()[5].length > 0" onclick="tab('polynomials')">Polynomials</button>
     <button id="tab11" :class="{tabInteg:!player.inLostIntegration,mandelbrotButton:player.inLostIntegration}" style="font-size:20px" v-if="player.integrations.gte(1) && player.tabDisplays[11] && subtabArray()[6].length > 0" onclick="tab('integration')">{{player.inLostIntegration ? "Mandelbrot" : "Integration"}}</button>
     <button id="tab12" class="tabSin" v-if="player.sinusoidals.gte(1) && player.tabDisplays[12] && subtabArray()[7].length > 0" onclick="tab('sinusoidal')">Sinusoidal</button>
@@ -222,19 +222,19 @@
         <button id="subtab2alt" class="resetButton" onclick="tab('quad'); player.currentSubtab[0] = 'cplane'" style="font-size: 14px" v-if="hasQU(5) && player.subtabDisplays[0][1]">Coordinate {{player.zUnlocked ? "Realm" : "Plane"}}</button>
         <button id="subtab3alt" class="resetButton" onclick="tab('quad'); player.currentSubtab[0] = 'sroot'" style="font-size: 14px" v-if="hasQU(15) && player.subtabDisplays[0][2]">Square Root</button>
         <button id="subtab4alt" class="resetButton" onclick="tab('quad'); player.currentSubtab[0] = 'expcurve'" style="font-size: 14px" v-if="hasQU(23) && player.subtabDisplays[0][3]">Exponential Curve</button>
-        <button id="subtab6alt" class="complexButton" style="font-size: 14px" onclick="tab('comp'); player.currentSubtab[1] = 'milestones'" v-if="player.subtabDisplays[1][0]">Complex Milestones</button>
-        <button id="subtab7alt" class="complexButton" style="font-size: 14px" onclick="tab('comp'); player.currentSubtab[1] = 'upgrades'" v-if="player.subtabDisplays[1][1]">Complex Upgrades</button><br>
+        <button id="subtab6alt" class="complexButton" style="font-size: 14px" onclick="tab('comp'); player.currentSubtab[1] = 'milestones'" v-if="(player.totali.gte(1) || player.integrations.gte(1)) && player.subtabDisplays[1][0]">Complex Milestones</button>
+        <button id="subtab7alt" class="complexButton" style="font-size: 14px" onclick="tab('comp'); player.currentSubtab[1] = 'upgrades'" v-if="(player.totali.gte(1) || player.integrations.gte(1)) && player.subtabDisplays[1][1]">Complex Upgrades</button><br v-if="hasComplexMilestoneLI(11) || player.integrations.gte(1)">
         <button id="subtab8alt" class="complexButton" style="font-size: 14px" onclick="tab('comp'); player.currentSubtab[1] = 'cplane'" v-if="hasComplexMilestoneLI(11) && player.subtabDisplays[1][2]">Complex Plane</button>
         <button id="subtab9alt" class="complexButton" style="font-size: 14px" onclick="tab('comp'); player.currentSubtab[1] = 'challenges'" v-if="hasCU(1,6) && player.subtabDisplays[1][3]">Complex Challenges</button>
         <button id="subtab10alt" class="complexButton" style="font-size: 14px" onclick="tab('comp'); player.currentSubtab[1] = 'zlab'" v-if="hasYQU(8,'lost') && player.subtabDisplays[1][4]">Z Lab</button>
         <button id="subtab10*alt" class="complexButton" style="font-size: 14px" onclick="tab('comp'); player.currentSubtab[1] = 'xpowers'" v-if="ccTiers() >= 24 && player.subtabDisplays[1][5]">X Powers</button>
         <button id="subtab11alt" class="yQuadButton" style="font-size: 14px" onclick="tab('yquad'); player.currentSubtab[3] = 'upgrades'" v-if="hasYQU(16,'lost') && player.subtabDisplays[3][0]">Y-Quadratic Upgrades</button>
-        <button id="subtab12alt" class="yQuadButton" style="font-size: 14px" onclick="tab('yquad'); player.currentSubtab[3] = 'challenges'" v-if="hasYQU(16,'lost') && player.subtabDisplays[3][1]">Y Challenges</button><br>
+        <button id="subtab12alt" class="yQuadButton" style="font-size: 14px" onclick="tab('yquad'); player.currentSubtab[3] = 'challenges'" v-if="hasYQU(16,'lost') && player.subtabDisplays[3][1]">Y Challenges</button><br v-if="player.integrations.gte(1)">
         <button id="subtab13alt" class="yQuadButton" style="font-size: 14px" onclick="tab('yquad'); player.currentSubtab[3] = 'ypowers'" v-if="FractalMilestones.has(12) && player.subtabDisplays[3][2]">Y Powers</button>
-        <button id="subtab16alt" class="mandelbrotButton" style="font-size: 14px" onclick="tab('integration'); player.currentSubtab[6] = 'milestones'" v-if="player.subtabDisplays[6][0]">Fractal Milestones</button>
-        <button id="subtab17alt" class="mandelbrotButton" style="font-size: 14px" onclick="tab('integration'); player.currentSubtab[6] = 'generators'" v-if="player.subtabDisplays[6][1]">Meta-Generators</button>
-        <button id="subtab18alt" class="mandelbrotButton" style="font-size: 14px" onclick="tab('integration'); player.currentSubtab[6] = 'fractalarm'" v-if="player.subtabDisplays[6][2]">Fractal Arm</button>
-        <button id="subtab19alt" class="mandelbrotButton" style="font-size: 14px" onclick="tab('integration'); player.currentSubtab[6] = 'minibrots'" v-if="player.quaternions[1].gte(180) && player.subtabDisplays[6][3]">Minibrots</button>
+        <button id="subtab16alt" class="mandelbrotButton" style="font-size: 14px" onclick="tab('integration'); player.currentSubtab[6] = 'milestones'" v-if="player.integrations.gte(1) && player.subtabDisplays[6][0]">Fractal Milestones</button>
+        <button id="subtab17alt" class="mandelbrotButton" style="font-size: 14px" onclick="tab('integration'); player.currentSubtab[6] = 'generators'" v-if="player.integrations.gte(1) && player.subtabDisplays[6][1]">Meta-Generators</button>
+        <button id="subtab18alt" class="mandelbrotButton" style="font-size: 14px" onclick="tab('integration'); player.currentSubtab[6] = 'fractalarm'" v-if="player.integrations.gte(1) && player.subtabDisplays[6][2]">Fractal Arm</button>
+        <button id="subtab19alt" class="mandelbrotButton" style="font-size: 14px" onclick="tab('integration'); player.currentSubtab[6] = 'minibrots'" v-if="player.quaternions[1].gte(150) && player.subtabDisplays[6][3]">Minibrots</button>
         <button id="subtab20alt" class="mandelbrotButton" style="font-size: 14px" onclick="tab('integration'); player.currentSubtab[6] = 'challenges'" v-if="player.quaternions[1].gte(750) && player.subtabDisplays[6][4]">Mandelbrot Challenges</button>
       </span><br><br>
     <table class="autocenter" v-if="!player.inLostIntegration"><tr>
@@ -467,7 +467,7 @@
       <button class="hoverable" onclick="document.getElementById('confirmationsModal').showModal()" v-if="player.totalx2.gte(1) || player.totali.gte(1) || player.integrations.gte(1)">
         Confirmations
       </button><br><br>
-      Algebraic Progression v3.0<br>
+      Algebraic Progression v3.0.1<br>
       Made by randomtuba<br>
       Thanks to downvoid, gapples2, and DEMEMZEA for bugfixing and some QoL mechanics.<br>
       Thanks to Yhvr for helping with the upgrade trees.<br>
@@ -2547,7 +2547,7 @@
       <button id="subtab16" class="mandelbrotButton" style="font-size: 14px" onclick="player.currentSubtab[6] = 'milestones'" v-if="!player.options[16] && player.subtabDisplays[6][0]">Fractal Milestones</button>
       <button id="subtab17" class="mandelbrotButton" style="font-size: 14px" onclick="player.currentSubtab[6] = 'generators'" v-if="!player.options[16] && player.subtabDisplays[6][1]">Meta-Generators</button>
       <button id="subtab18" class="mandelbrotButton" style="font-size: 14px" onclick="player.currentSubtab[6] = 'fractalarm'" v-if="!player.options[16] && player.subtabDisplays[6][2]">Fractal Arm</button>
-      <button id="subtab19" class="mandelbrotButton" style="font-size: 14px" onclick="player.currentSubtab[6] = 'minibrots'" v-if="!player.options[16] && player.quaternions[1].gte(180) && player.subtabDisplays[6][3]">Minibrots</button>
+      <button id="subtab19" class="mandelbrotButton" style="font-size: 14px" onclick="player.currentSubtab[6] = 'minibrots'" v-if="!player.options[16] && player.quaternions[1].gte(150) && player.subtabDisplays[6][3]">Minibrots</button>
       <button id="subtab20" class="mandelbrotButton" style="font-size: 14px" onclick="player.currentSubtab[6] = 'challenges'" v-if="!player.options[16] && player.quaternions[1].gte(750) && player.subtabDisplays[6][4]">Mandelbrot Challenges</button>
       <br v-if="!player.options[16]"><br v-if="!player.options[16]">
       <div id="tab11*-1disp" :style="{ display: player.currentSubtab[6] == 'milestones' ? 'block' : 'none' }"> <!--- FRACTAL MILESTONES !--->
@@ -2718,7 +2718,7 @@
         </table><br>
       </div>
       <div id="tab12-3disp" :style="{ display: player.currentSubtab[7] == 'circle' ? 'block' : 'none' }"> <!--- UNIT CIRCLE !--->
-        <button style="width: 160px; height: 110px;" :class="{buildingLocked:player.triangles.lt(2e55),buildingBuyable:player.triangles.gte(2e55)}" onclick="if(player.triangles.gte(2e55)){player.unitCircle.unlocked = true}" v-if="!player.unitCircle.unlocked">
+        <button style="width: 160px; height: 110px;" :class="{buildingLocked:player.triangles.lt(2e55),buildingBuyable:player.triangles.gte(2e55)}" onclick="UnitCircle.unlock()" v-if="!player.unitCircle.unlocked">
           Unlock for {{format(2e55)}} triangles
         </button>
         <div v-if="player.unitCircle.unlocked">
@@ -2786,7 +2786,7 @@
             QP Filled: {{format(player.pythTriples.bars[1])}}<br>
             <span v-if="PythagoreanTriples.hasMilestone(1)">Your QP filled is multiplying Derivatives gain by {{format(PythagoreanTriples.barMilestones[1].eff())}}x<br></span>
             <span v-for="a in 4" :class="{nonrealSolution:!PythagoreanTriples.hasMilestone(a),realSolution:PythagoreanTriples.hasMilestone(a)}">
-              {{format(PythagoreanTriples.barMilestones[a].req)}}%: {{PythagoreanTriples.barMilestones[a].desc}}<br>
+              {{format(PythagoreanTriples.barMilestones[a].req)}}%: {{a == 3 ? PythagoreanTriples.barMilestones[a].desc() : PythagoreanTriples.barMilestones[a].desc}}<br>
             </span>
             <button class="hoverable" onclick="PythagoreanTriples.fillBar(1)">
               Fill
@@ -2894,6 +2894,7 @@
       </dialog>
       <dialog id="tabsModal">
         You can use the left and right arrow keys for tab navigation and the up and down arrow keys for subtab navigation.<br>
+        Note: Subtab display buttons do nothing when the subtab isn't unlocked.<br>
         Generation: <button class="hoverable" onclick="if(!tmp.allTabsShown)player.tabDisplays[1] = !player.tabDisplays[1]">{{player.tabDisplays[1] ? "SHOWN" : "HIDDEN"}}</button><br>
         Options: cannot be hidden<br>
         Statistics: <button class="hoverable" onclick="if(!tmp.allTabsShown)player.tabDisplays[3] = !player.tabDisplays[3]">{{player.tabDisplays[3] ? "SHOWN" : "HIDDEN"}}</button>
@@ -2912,19 +2913,19 @@
         <span v-if="player.totalx2.gte(1) || player.totali.gte(1) || player.integrations.gte(1)">
           {{player.inLostIntegration ? "Resetting" : "Quadratic"}}: <button class="hoverable" onclick="if(!tmp.allTabsShown)player.tabDisplays[7] = !player.tabDisplays[7]">{{player.tabDisplays[7] ? "SHOWN" : "HIDDEN"}}</button>
           <span v-if="hasQU(12) || hasQU(16)"><br>
-            <button class="hoverable" onclick="if(!tmp.allTabsShown)player.subtabDisplays[0][0] = !player.subtabDisplays[0][0]" v-if="hasQU(player.inLostIntegration ? 5 : 12)">{{player.inLostIntegration ? "Reset Table" : "Quadratic Upgrades"}}: {{player.subtabDisplays[0][0] ? "SHOWN" : "HIDDEN"}}</button> 
-            <button class="hoverable" onclick="if(!tmp.allTabsShown)player.subtabDisplays[0][1] = !player.subtabDisplays[0][1]" v-if="hasQU(player.inLostIntegration ? 5 : 12)">Coordinate {{player.zUnlocked ? "Realm" : "Plane"}}: {{player.subtabDisplays[0][1] ? "SHOWN" : "HIDDEN"}}</button> 
-            <button class="hoverable" onclick="if(!tmp.allTabsShown)player.subtabDisplays[0][2] = !player.subtabDisplays[0][2]" v-if="player.inLostIntegration ? hasQU(15) : hasSU(12)">Square Root: {{player.subtabDisplays[0][2] ? "SHOWN" : "HIDDEN"}}</button> 
-            <button class="hoverable" onclick="if(!tmp.allTabsShown)player.subtabDisplays[0][3] = !player.subtabDisplays[0][3]" v-if="hasQU(player.inLostIntegration ? 23 : 20)">{{player.inLostIntegration ? "Exponential Curve" : "Challenges"}}: {{player.subtabDisplays[0][3] ? "SHOWN" : "HIDDEN"}}</button> 
-            <button class="hoverable" onclick="if(!tmp.allTabsShown)player.subtabDisplays[0][4] = !player.subtabDisplays[0][4]" v-if="hasSU(16) && !player.inLostIntegration">Quadratic Formula: {{player.subtabDisplays[0][4] ? "SHOWN" : "HIDDEN"}}</button>
+            <button class="hoverable" onclick="if(!tmp.allTabsShown)player.subtabDisplays[0][0] = !player.subtabDisplays[0][0]" v-if="hasQU(player.inLostIntegration ? 5 : 12) || player.totali.gte(1) || player.integrations.gte(1)">{{player.inLostIntegration ? "Reset Table" : "Quadratic Upgrades"}}: {{player.subtabDisplays[0][0] ? "SHOWN" : "HIDDEN"}}</button> 
+            <button class="hoverable" onclick="if(!tmp.allTabsShown)player.subtabDisplays[0][1] = !player.subtabDisplays[0][1]" v-if="hasQU(player.inLostIntegration ? 5 : 12) || player.totali.gte(1) || player.integrations.gte(1)">Coordinate {{player.zUnlocked ? "Realm" : "Plane"}}: {{player.subtabDisplays[0][1] ? "SHOWN" : "HIDDEN"}}</button> 
+            <button class="hoverable" onclick="if(!tmp.allTabsShown)player.subtabDisplays[0][2] = !player.subtabDisplays[0][2]" v-if="(player.inLostIntegration ? hasQU(15) : hasSU(12)) || player.totali.gte(1) || player.integrations.gte(1)">Square Root: {{player.subtabDisplays[0][2] ? "SHOWN" : "HIDDEN"}}</button> 
+            <button class="hoverable" onclick="if(!tmp.allTabsShown)player.subtabDisplays[0][3] = !player.subtabDisplays[0][3]" v-if="hasQU(player.inLostIntegration ? 23 : 20) || player.totali.gte(1) || player.integrations.gte(1)">{{player.inLostIntegration ? "Exponential Curve" : "Challenges"}}: {{player.subtabDisplays[0][3] ? "SHOWN" : "HIDDEN"}}</button> 
+            <button class="hoverable" onclick="if(!tmp.allTabsShown)player.subtabDisplays[0][4] = !player.subtabDisplays[0][4]" v-if="(hasSU(16) || player.totali.gte(1) || player.integrations.gte(1)) && !player.inLostIntegration">Quadratic Formula: {{player.subtabDisplays[0][4] ? "SHOWN" : "HIDDEN"}}</button>
           </span><br>
         </span>
         <span v-if="player.totaly2.gte(1) || player.integrations.gte(1)">
           Y-Quadratic: <button class="hoverable" onclick="if(!tmp.allTabsShown)player.tabDisplays[8] = !player.tabDisplays[8]">{{player.tabDisplays[8] ? "SHOWN" : "HIDDEN"}}</button>
           <span v-if="player.totaly2.gte(1) || player.integrations.gte(1)"><br>
-            <button class="hoverable" onclick="if(!tmp.allTabsShown)player.subtabDisplays[3][0] = !player.subtabDisplays[3][0]" v-if="hasYQU(16,'lost') || !player.inLostIntegration">Y-Quadratic Upgrades: {{player.subtabDisplays[3][0] ? "SHOWN" : "HIDDEN"}}</button> 
-            <button class="hoverable" onclick="if(!tmp.allTabsShown)player.subtabDisplays[3][1] = !player.subtabDisplays[3][1]" v-if="hasYQU(16,'lost') || !player.inLostIntegration">{{player.inLostIntegration ? "Y Challenges" : "Variable Synthesizer"}}: {{player.subtabDisplays[3][1] ? "SHOWN" : "HIDDEN"}}</button> 
-            <button class="hoverable" onclick="if(!tmp.allTabsShown)player.subtabDisplays[3][2] = !player.subtabDisplays[3][2]" v-if="FractalMilestones.has(12) || !player.inLostIntegration">{{player.inLostIntegration ? "Y Powers" : "Y-Challenges"}}: {{player.subtabDisplays[3][2] ? "SHOWN" : "HIDDEN"}}</button> 
+            <button class="hoverable" onclick="if(!tmp.allTabsShown)player.subtabDisplays[3][0] = !player.subtabDisplays[3][0]" v-if="hasYQU(16,'lost') || player.integrations.gte(1) || !player.inLostIntegration">Y-Quadratic Upgrades: {{player.subtabDisplays[3][0] ? "SHOWN" : "HIDDEN"}}</button> 
+            <button class="hoverable" onclick="if(!tmp.allTabsShown)player.subtabDisplays[3][1] = !player.subtabDisplays[3][1]" v-if="hasYQU(16,'lost') || player.integrations.gte(1) || !player.inLostIntegration">{{player.inLostIntegration ? "Y Challenges" : "Variable Synthesizer"}}: {{player.subtabDisplays[3][1] ? "SHOWN" : "HIDDEN"}}</button> 
+            <button class="hoverable" onclick="if(!tmp.allTabsShown)player.subtabDisplays[3][2] = !player.subtabDisplays[3][2]" v-if="FractalMilestones.has(12) || player.integrations.gte(1) || !player.inLostIntegration">{{player.inLostIntegration ? "Y Powers" : "Y-Challenges"}}: {{player.subtabDisplays[3][2] ? "SHOWN" : "HIDDEN"}}</button> 
             <button class="hoverable" onclick="if(!tmp.allTabsShown)player.subtabDisplays[3][3] = !player.subtabDisplays[3][3]" v-if="player.unitCircle.unlocked">Y-Polynomials: {{player.subtabDisplays[3][3] ? "SHOWN" : "HIDDEN"}}</button>
           </span><br>
         </span>
@@ -2932,10 +2933,10 @@
           Complex: <button class="hoverable" onclick="if(!tmp.allTabsShown)player.tabDisplays[9] = !player.tabDisplays[9]">{{player.tabDisplays[9] ? "SHOWN" : "HIDDEN"}}</button><br>
           <button class="hoverable" onclick="if(!tmp.allTabsShown)player.subtabDisplays[1][0] = !player.subtabDisplays[1][0]">{{player.wUnlocked && !player.options[26] ? "Alterations" : "Milestones"}}: {{player.subtabDisplays[1][0] ? "SHOWN" : "HIDDEN"}}</button> 
           <button class="hoverable" onclick="if(!tmp.allTabsShown)player.subtabDisplays[1][1] = !player.subtabDisplays[1][1]">{{Alterations.has(2) && !player.options[26] ? "Hypercomplex Upgrades" : "Complex Upgrades"}}: {{player.subtabDisplays[1][1] ? "SHOWN" : "HIDDEN"}}</button> 
-          <button class="hoverable" onclick="if(!tmp.allTabsShown)player.subtabDisplays[1][2] = !player.subtabDisplays[1][2]" v-if="player.inLostIntegration ? hasComplexMilestoneLI(11) : hasMilestone(12)">{{BasicHypercompUpgrades.has(6) && !player.options[26] ? "Hypercomplex Flune" : "Complex Plane"}}: {{player.subtabDisplays[1][2] ? "SHOWN" : "HIDDEN"}}</button> 
-          <button class="hoverable" onclick="if(!tmp.allTabsShown)player.subtabDisplays[1][3] = !player.subtabDisplays[1][3]" v-if="hasCU(1,6)">Complex Challenges: {{player.subtabDisplays[1][3] ? "SHOWN" : "HIDDEN"}}</button> 
-          <button class="hoverable" onclick="if(!tmp.allTabsShown)player.subtabDisplays[1][4] = !player.subtabDisplays[1][4]" v-if="hasYQU(8,player.inLostIntegration ? 'lost' : 'bought')">Z Lab: {{player.subtabDisplays[1][4] ? "SHOWN" : "HIDDEN"}}</button>
-          <button class="hoverable" onclick="if(!tmp.allTabsShown)player.subtabDisplays[1][5] = !player.subtabDisplays[1][5]" v-if="ccTiers() >= 24 && player.inLostIntegration">X Powers: {{player.subtabDisplays[1][5] ? "SHOWN" : "HIDDEN"}}</button><br>
+          <button class="hoverable" onclick="if(!tmp.allTabsShown)player.subtabDisplays[1][2] = !player.subtabDisplays[1][2]" v-if="(player.inLostIntegration ? hasComplexMilestoneLI(11) : hasMilestone(12)) || player.integrations.gte(1)">{{BasicHypercompUpgrades.has(6) && !player.options[26] ? "Hypercomplex Flune" : "Complex Plane"}}: {{player.subtabDisplays[1][2] ? "SHOWN" : "HIDDEN"}}</button> 
+          <button class="hoverable" onclick="if(!tmp.allTabsShown)player.subtabDisplays[1][3] = !player.subtabDisplays[1][3]" v-if="hasCU(1,6) || player.integrations.gte(1)">Complex Challenges: {{player.subtabDisplays[1][3] ? "SHOWN" : "HIDDEN"}}</button> 
+          <button class="hoverable" onclick="if(!tmp.allTabsShown)player.subtabDisplays[1][4] = !player.subtabDisplays[1][4]" v-if="hasYQU(8,player.inLostIntegration ? 'lost' : 'bought') || player.integrations.gte(1)">Z Lab: {{player.subtabDisplays[1][4] ? "SHOWN" : "HIDDEN"}}</button>
+          <button class="hoverable" onclick="if(!tmp.allTabsShown)player.subtabDisplays[1][5] = !player.subtabDisplays[1][5]" v-if="(ccTiers() >= 24 || player.integrations.gte(1)) && player.inLostIntegration">X Powers: {{player.subtabDisplays[1][5] ? "SHOWN" : "HIDDEN"}}</button><br>
         </span>
         <span v-if="ccTiers() >= 50">
           Polynomials: <button class="hoverable" onclick="if(!tmp.allTabsShown)player.tabDisplays[10] = !player.tabDisplays[10]">{{player.tabDisplays[10] ? "SHOWN" : "HIDDEN"}}</button><br>
@@ -2947,7 +2948,7 @@
           <button class="hoverable" onclick="if(!tmp.allTabsShown)player.subtabDisplays[6][0] = !player.subtabDisplays[6][0]">{{player.inLostIntegration ? "Fractal Milestones" : "Number Sets"}}: {{player.subtabDisplays[6][0] ? "SHOWN" : "HIDDEN"}}</button> 
           <button class="hoverable" onclick="if(!tmp.allTabsShown)player.subtabDisplays[6][1] = !player.subtabDisplays[6][1]">{{player.inLostIntegration ? "Meta-Generators" : "Integration Upgrades"}}: {{player.subtabDisplays[6][1] ? "SHOWN" : "HIDDEN"}}</button> 
           <button class="hoverable" onclick="if(!tmp.allTabsShown)player.subtabDisplays[6][2] = !player.subtabDisplays[6][2]">{{player.inLostIntegration ? "Fractal Arm" : "Temporal Plane"}}: {{player.subtabDisplays[6][2] ? "SHOWN" : "HIDDEN"}}</button> 
-          <button class="hoverable" onclick="if(!tmp.allTabsShown)player.subtabDisplays[6][3] = !player.subtabDisplays[6][3]" v-if="player.quaternions[1].gte(180) || !player.inLostIntegration">{{player.inLostIntegration ? "Minibrots" : "Automation Core"}}: {{player.subtabDisplays[6][3] ? "SHOWN" : "HIDDEN"}}</button>
+          <button class="hoverable" onclick="if(!tmp.allTabsShown)player.subtabDisplays[6][3] = !player.subtabDisplays[6][3]" v-if="player.quaternions[1].gte(150) || !player.inLostIntegration">{{player.inLostIntegration ? "Minibrots" : "Automation Core"}}: {{player.subtabDisplays[6][3] ? "SHOWN" : "HIDDEN"}}</button>
           <br v-if="IntegrationUpgrades.integration4.isBought()">
           <button class="hoverable" onclick="if(!tmp.allTabsShown)player.subtabDisplays[6][4] = !player.subtabDisplays[6][4]" v-if="player.inLostIntegration ? player.quaternions[1].gte(750) : IntegrationUpgrades.integration4.isBought()">{{player.inLostIntegration ? "Mandelbrot Challenges" : "The Limit"}}: {{player.subtabDisplays[6][4] ? "SHOWN" : "HIDDEN"}}</button> 
           <button class="hoverable" onclick="if(!tmp.allTabsShown)player.subtabDisplays[6][5] = !player.subtabDisplays[6][5]" v-if="IntegrationUpgrades.ic1.isBought()">Integration Challenges: {{player.subtabDisplays[6][5] ? "SHOWN" : "HIDDEN"}}</button> 
