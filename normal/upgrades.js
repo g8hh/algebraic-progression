@@ -217,9 +217,6 @@ const PERM_UPGRADES = {
   },
   23: {
     desc: "Multiply Meta-Generator effectiveness by 100x or power Meta-Generator effectiveness by ^1.01, whichever is larger.",
-    eff(x) {
-      return player.integration.rebuyableUpgrades[x].add(player.integration.rebuyableUpgrades[x+4]).mul(Decimal.pow(1.1,player.integration.rebuyableUpgrades[x])).mul(MetaGenerators.mults()).max(1).pow(0.01).max(100)
-    }
   },
   24: {
     desc: "Multiply Minibrot replication speed by 10x.",

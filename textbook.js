@@ -362,7 +362,7 @@ function tbookDescriptions(x,world) {
         For 15 real-time seconds, your uncertainty exponent will linearly increase from 0 to 1. For the next 15 real-time seconds,<br>
         your uncertainty exponent will linearly decrease from 1 to 0. This cycle repeats continuously.
         ${player.integration.temporalPlane.buyables[4].gte(1) ? `<br><br><b>Time-Jump:</b> Using holes, you can skip forward in real time by 5 minutes for each hole spent.<br>
-        When you time-jump, you'll have to wait the amount of time you skipped in real time before you can time-jump again.` : ``}`, // temporal plane
+        When you time-jump, you'll have to wait at least 6 hours (scaling based on time-jump length) before you can time-jump again.` : ``}`, // temporal plane
         `The Automation Core is unlocked by Integrating 15 times. The Automation Core has various options that allow you to<br>
         automate all of the mechanics that aren't fully automated by the perks alone. This includes automatically unlocking,<br>
         entering, and completing Complex Challenges, automatically loading Complex Upgrades, automatically entering and exiting<br>
@@ -420,7 +420,7 @@ function tbookDescriptions(x,world) {
         <b>Base Secondary Effect Formula:</b> TW<sup>0.05</sup> + 1<br>
         <b>1st Unit Circle Buyable Cost Formula:</b> 1e63 * 1e12<sup>purchases<sup>2</sup></sup><br>
         <b>2nd Unit Circle Buyable Cost Formula:</b> 1e70 * 1e15<sup>purchases<sup>2</sup></sup>`, // unit circle
-        `When you reach 1e1,425,000 y<sup>2</sup>, you can unlock Y-Polynomials.<br>
+        `When you reach 1e1,425,000 polynomial power, you can unlock Y-Polynomials.<br>
         The first Y-Polynomial is y<sup>3</sup>, which produces Y-Polynomial Power, which gives an exponent to Polynomial efficiencies.<br>
         Y-Polynomials work similarly to Polynomials, with each tier costing and producing the tier before it.<br>
         The efficiency of a Y-Polynomial doubles per purchase, until it reaches 1e9, which then it's softcapped.<br>
@@ -635,7 +635,7 @@ function tbookDescriptions(x,world) {
         the Y Challenge's effect becomes stronger.`, // y-challenges
         `When you complete all 8 Complex Challenges fully (equating to 24 CC tiers), you unlock X Powers.<br>
         Your X Powers multiplied together form an X Power Product, which gives an exponent to point gain.<br>
-        x<sup>2</sup> is produced based on x, and x<sup>3</sup> is produced based on x<sup>3</sup>, and so on.<br>
+        x<sup>2</sup> is produced based on x, and x<sup>3</sup> is produced based on x<sup>2</sup>, and so on.<br>
         The last X Powers tier is x<sup>9</sup>.<br><br>
         Additionally, each X Powers tier can be used to purchase 3 different buyables. All X Powers buyables<br>
         scale quadratically, and a lot of the buyables share similar cost formulas. The first 2 X Powers buyables<br>

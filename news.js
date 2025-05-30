@@ -223,7 +223,7 @@ function updateNewsArray() {
   ["Michael! Don't leave me here! Michael! MICHAEL!!!",true,"a195"], //v3.0
   ["she x my y til I z",player.zUnlocked,"a196"], //v3.0
   ["<span class='polyText'>You found the <b>RAINBOW</b> news message!</span>",true,"a197"], //v3.0
-  ["√-2 = 4 | It's all fun and games until someone loses an i.",true,"a198"], //v3.0
+  ["√-4 = 2 | It's all fun and games until someone loses an i.",true,"a198"], //v3.0
   ["y = mx+b is my favorite one-liner!",hasUpgrade(8) || player.totali.gte(1) || player.integrations.gte(1),"a199"], //v3.0
   ["For those of you who haven't made an incremental game, you should realize that game balancing is one of the most difficult tasks in making an incremental game, maybe even harder than the actual programming. You have to keep track of so many formulas and effects, and it can become very overwhelming. However, this difficult act of balancing is not as difficult as the Earth trying to balance your mom's weight with its gravitational pull.",true,"a200"], //3.0
   [`randomtuba recommends that you play ${tmp.gameRecommendations[Math.floor(Math.random() * tmp.gameRecommendations.length)]}`,true,"a201"], //v3.0
@@ -238,7 +238,7 @@ function updateNewsArray() {
   ["I Spent 100 Days in Algebraic Progression Hardcore Mode (Impossible)",true,"a210"], //v3.0
   ["Oh, so you like Complex Upgrades? Then name every Complex Upgrade!...what do you mean they don't have titles?",player.compUpgs[0].length >= 12 || player.integrations.gte(1),"a211"], //v3.0
   ["AP's next patch will be removing the UI, which will heavily increase performance for all devices.",true,"a212"], //v3.0
-  ["Yo mama so fat, when she stepped on the weight scale, it reached the 64-bit floating point integer limit!",true,"a213"], //v3.0
+  ["Yo mama so fat, when she stepped on the weight scale, it reached the 64-bit floating point number limit!",true,"a213"], //v3.0
   [`"You should add a notation that shows all of the digits of the number" -highly dangerous individual that should be avoided at all costs`,true,"a214"], //v3.0
   ["scrollNextMessage();",true,"a215"], //v3.0
   ["Player...I remember you're <span style='color:red;text-shadow:0px 0px 7px red;'>variables</span>.",player.x.gte(1) || player.totalx2.gte(1) || player.totali.gte(1) || player.integrations.gte(1),"a216"], //v3.0

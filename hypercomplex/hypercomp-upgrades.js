@@ -282,7 +282,7 @@ const BasicHypercompUpgrades = {
   },
   11: {
     title: "More Sinusoidal Upgrade Purchases!",
-    desc: "Power triangles gain by 1.05, and square root the y<sup>2</sup>2<sup>2</sup> cost.",
+    desc: "Power triangles gain by 1.05, and square root the y<sup>2</sup>z<sup>2</sup> cost.",
     cost: new Decimal("1e598"),
     effectDisplay() {return null},
   },
