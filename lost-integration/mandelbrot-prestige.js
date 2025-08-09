@@ -162,7 +162,9 @@ const MetaGenerators = {
         return player.integration.rebuyableUpgrades[1].gte(10000) ? new Decimal(Infinity) : Decimal.pow(1.5,player.integration.rebuyableUpgrades[1]).floor()
         },
         eff() {
-            return player.integration.rebuyableUpgrades[1].add(player.integration.rebuyableUpgrades[5]).mul(Decimal.pow(1.1,player.integration.rebuyableUpgrades[1])).mul(MetaGenerators.mults()).pow(hasPermUpgrade(23) ? PERM_UPGRADES[23].eff(1) : 1)
+            let eff = player.integration.rebuyableUpgrades[1].add(player.integration.rebuyableUpgrades[5]).mul(Decimal.pow(1.1,player.integration.rebuyableUpgrades[1])).mul(MetaGenerators.mults())
+            if(hasPermUpgrade(23)) eff = eff.gt(1e200) ? eff.pow(1.01) : eff.mul(100)
+            return eff
         },
         effectDisplay() {
             return format(this.eff()) + "/s";
@@ -174,7 +176,9 @@ const MetaGenerators = {
         return player.integration.rebuyableUpgrades[2].gte(10000) ? new Decimal(Infinity) : Decimal.pow(1.5,player.integration.rebuyableUpgrades[2]).mul(20).floor()
         },
         eff() {
-            return player.integration.rebuyableUpgrades[2].add(player.integration.rebuyableUpgrades[6]).mul(Decimal.pow(1.1,player.integration.rebuyableUpgrades[2])).mul(MetaGenerators.mults()).pow(hasPermUpgrade(23) ? PERM_UPGRADES[23].eff(2) : 1)
+            let eff = player.integration.rebuyableUpgrades[2].add(player.integration.rebuyableUpgrades[6]).mul(Decimal.pow(1.1,player.integration.rebuyableUpgrades[2])).mul(MetaGenerators.mults())
+            if(hasPermUpgrade(23)) eff = eff.gt(1e200) ? eff.pow(1.01) : eff.mul(100)
+            return eff
         },
         effectDisplay() {
             return format(this.eff()) + "/s";
@@ -186,7 +190,9 @@ const MetaGenerators = {
         return player.integration.rebuyableUpgrades[3].gte(10000) ? new Decimal(Infinity) : Decimal.pow(1.5,player.integration.rebuyableUpgrades[3]).mul(1500).floor()
         },
         eff() {
-            return player.integration.rebuyableUpgrades[3].add(player.integration.rebuyableUpgrades[7]).mul(Decimal.pow(1.1,player.integration.rebuyableUpgrades[3])).mul(MetaGenerators.mults()).pow(hasPermUpgrade(23) ? PERM_UPGRADES[23].eff(3) : 1)
+            let eff = player.integration.rebuyableUpgrades[3].add(player.integration.rebuyableUpgrades[7]).mul(Decimal.pow(1.1,player.integration.rebuyableUpgrades[3])).mul(MetaGenerators.mults())
+            if(hasPermUpgrade(23)) eff = eff.gt(1e200) ? eff.pow(1.01) : eff.mul(100)
+            return eff
         },
         effectDisplay() {
             return format(this.eff()) + "/s";
@@ -198,7 +204,9 @@ const MetaGenerators = {
         return player.integration.rebuyableUpgrades[4].gte(10000) ? new Decimal(Infinity) : Decimal.pow(1.5,player.integration.rebuyableUpgrades[4]).mul(1e8).floor()
         },
         eff() {
-            return player.integration.rebuyableUpgrades[4].add(player.integration.rebuyableUpgrades[8]).mul(Decimal.pow(1.1,player.integration.rebuyableUpgrades[4])).mul(MetaGenerators.mults()).pow(hasPermUpgrade(23) ? PERM_UPGRADES[23].eff(4) : 1)
+            let eff = player.integration.rebuyableUpgrades[4].add(player.integration.rebuyableUpgrades[8]).mul(Decimal.pow(1.1,player.integration.rebuyableUpgrades[4])).mul(MetaGenerators.mults())
+            if(hasPermUpgrade(23)) eff = eff.gt(1e200) ? eff.pow(1.01) : eff.mul(100)
+            return eff
         },
         effectDisplay() {
             return format(this.eff()) + "/s";
